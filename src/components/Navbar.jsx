@@ -8,6 +8,7 @@ export default function Navbar() {
         <div className="flex space-x-8">
           <NavLink to="/create" className="font-bold">Reservation Form</NavLink>
           <NavLink to="/reservations" className="font-bold">Reservations</NavLink>
+          <NavLink to="/login" className="font-bold">Login</NavLink>
           <NavLink to="/about" className="font-bold">About Us</NavLink>
         </div>
       </nav>
