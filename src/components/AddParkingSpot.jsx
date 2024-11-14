@@ -1,38 +1,52 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// src/components/AddParkingSpot.jsx
+import React, { useState } from 'react';
 
-export default function AddParkingSpot() {
-  const [form, setForm] = useState({ number: "", availability: "Available" });
-  const navigate = useNavigate();
-
-  const updateForm = (value) => setForm({ ...form, ...value });
+const AddParkingSpot = () => {
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:5050/parkingSpots", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+    // API call to add parking spot
+    const response = await fetch('/api/parking-spots', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, location }),
     });
-    navigate("/reservations");
+    if (response.ok) {
+      // Redirect or show success message
+      console.log('Parking Spot Added');
+    } else {
+      console.error('Failed to add parking spot');
+    }
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-lg bg-white rounded-lg shadow-lg mt-20">
-      <h3 className="text-2xl font-semibold text-center mb-6">Add a New Parking Spot</h3>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex flex-col">
-          <label className="text-lg">Spot Number</label>
+    <div className="add-parking-spot">
+      <h2>Add Parking Spot</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Parking Spot Name:</label>
           <input
             type="text"
-            value={form.number}
-            onChange={(e) => updateForm({ number: e.target.value })}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
-            className="p-3 border rounded-md"
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-md">Add Spot</button>
+        <div>
+          <label>Location:</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Add Spot</button>
       </form>
     </div>
   );
-}
+};
+
+export default AddParkingSpot;

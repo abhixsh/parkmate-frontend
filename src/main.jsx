@@ -5,8 +5,13 @@ import App from "./App";
 import ReservationList from "./components/ReservationList";
 import Reservation from "./components/ReservationForm";
 import Landing from "./components/Landing";
-import AddParkingSpot from "./components/AddParkingSpot";
+import AdminDashboard from './components/AdminDashboard';
+import ManageParkingSpots from './components/ManageParkingSpots';
+import ManageReservations from './components/ManageReservations';
+import AddParkingSpot from './components/AddParkingSpot';
 import AboutUs from "./components/AboutUs";
+import Login from './components/Login';
+import Register from './components/Register';
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -16,9 +21,15 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Landing /> },
       { path: "/reservations", element: <ReservationList /> },
-      { path: "/create", element: <AddParkingSpot /> },
-      { path: "/edit/:id", element: <Reservation /> },
+      { path: "/create", element: <Reservation /> },
+      //{ path: "/edit/:id", element: <Reservation /> },
       { path: "/about", element: <AboutUs /> },
+      { path:"/login", element: <Login /> },
+      { path: "/register", element: <Register />},
+      { path: "/admin-dashboard", element: <AdminDashboard />},
+      { path: "/manage-parking-spots", element: <ManageParkingSpots />},
+      { path: "/manage-reservations", element: <ManageReservations />},
+      { path: "/add-parking-spot", element: <AddParkingSpot />},
     ],
   },
 ]);
