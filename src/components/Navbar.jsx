@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,7 +12,7 @@ const Navbar = () => {
           <span className="text-[#ffbb00] text-[24px] sm:text-[32px] font-extrabold font-poppins">
             Park
           </span>
-          <span className="text-black text-[24px] sm:text-[32px] font-bold font-poppins">
+          <span className="text-black text-[24px] sm:text-[32px] font-extrabold font-poppins">
             Mate
           </span>
         </Link>
@@ -37,13 +36,13 @@ const Navbar = () => {
         {/* Navigation Links for Desktop */}
         <div className="hidden sm:flex items-center space-x-8">
           <Link
-            to="/reserve-spot"
-            className="text-[#2f3a3b] text-[17px] font-semibold hover:text-[#ffbb00] transition"
+            to="/reservation"
+            className="text-[#2f3a3b] text-[17px] font-normal hover:text-[#ffbb00] transition"
           >
             Reserve a Spot
           </Link>
           <Link
-            to="/my-reservations"
+            to="/info"
             className="text-[#2f3a3b] text-[17px] font-normal hover:text-[#ffbb00] transition"
           >
             My Reservations
