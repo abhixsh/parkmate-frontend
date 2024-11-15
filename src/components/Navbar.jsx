@@ -64,7 +64,7 @@ const Navbar = () => {
             Log In
           </Link>
           <Link
-            to="/signup"
+            to="/register"
             className="w-[108px] h-[48px] flex items-center justify-center rounded-[10px] border border-[#ffbb00] text-[#ffbb00] text-[17px] font-semibold hover:bg-[#ffbb00] hover:text-white transition"
           >
             Sign Up
@@ -77,14 +77,14 @@ const Navbar = () => {
         <div className="sm:hidden bg-white shadow-lg">
           <div className="flex flex-col items-start px-6 py-4 space-y-2">
             <Link
-              to="/reserve-spot"
+              to="/reservation"
               className="text-[#2f3a3b] text-[17px] font-semibold hover:text-[#ffbb00] transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Reserve a Spot
             </Link>
             <Link
-              to="/my-reservations"
+              to="/info"
               className="text-[#2f3a3b] text-[17px] font-normal hover:text-[#ffbb00] transition"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -105,7 +105,7 @@ const Navbar = () => {
               Log In
             </Link>
             <Link
-              to="/signup"
+              to="/register"
               className="w-full flex items-center justify-center rounded-[10px] border border-[#ffbb00] text-[#ffbb00] text-[17px] font-semibold hover:bg-[#ffbb00] hover:text-white transition py-2"
               onClick={() => setIsMenuOpen(false)}
             >
