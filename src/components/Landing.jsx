@@ -34,8 +34,8 @@ const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="bg-white">
-      <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
+    <section className="bg-white pt-12 md:pt-12">
+      <div className="max-w-screen-xl px-4 mx-auto text-center">
         <figure className="max-w-screen-md mx-auto transition-all duration-500 ease-in-out">
           <svg
             className="h-12 mx-auto mb-3 text-gray-400"
@@ -55,7 +55,7 @@ const Testimonials = () => {
           </blockquote>
           <figcaption className="flex items-center justify-center mt-6 space-x-3">
             <img
-              className="w-6 h-6 rounded-full"
+              className="w-12 h-12 rounded-full"
               src={currentTestimonial.image}
               alt={`${currentTestimonial.name} profile`}
             />
@@ -78,94 +78,96 @@ const LandingPage = () => {
   return (
     <div className="w-full relative bg-white">
       {/* Top Section */}
-      <div className="w-[1280px] h-[558px] mx-auto mt-[151px] relative">
-        <img
-          className="w-full h-[350px] rounded-[15px]"
-          src="https://via.placeholder.com/1280x350"
-          alt="Parking"
-        />
-        <div className="absolute left-[21px] top-[418px] text-center text-[#494949] text-2xl font-semibold">
-          Welcome to ParkMate
-        </div>
-        <div className="absolute left-[18px] top-[450px]">
-          <h1 className="text-black text-5xl font-semibold leading-[54px]">
-            Don’t Let Parking be Hassle.
-            <br />
-            <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
-          </h1>
-        </div>
-        <p className="w-[514px] absolute left-[739px] top-[458px] text-black text-sm font-light">
-          Tired of driving around looking for a parking spot? ParkMaster makes
-          parking easier, faster, and more convenient. Whether you’re a driver
-          looking for a spot or an admin managing parking operations, ParkMaster
-          has you covered.
-        </p>
-      </div>
+      <div className="w-full max-w-screen-xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+  {/* Image Section */}
+  <div>
+    <img
+      className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
+      src="https://via.placeholder.com/1280x350"
+      alt="Parking"
+    />
+  </div>
 
-      {/* Stats Section */}
-      <div className="max-w-[1243px] mx-auto flex flex-wrap justify-between mt-[200px] space-y-4 sm:space-y-0">
+  {/* Text Section */}
+  <div className="flex flex-col justify-center space-y-4">
+    <p className="text-[#494949] text-lg sm:text-xl md:text-2xl font-semibold">
+      Welcome to ParkMate
+    </p>
+    <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-snug">
+      Don’t Let Parking be a Hassle.
+      <br />
+      <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
+    </h1>
+    <p className="text-black text-sm md:text-base font-light">
+      Tired of driving around looking for a parking spot? ParkMaster makes
+      parking easier, faster, and more convenient. Whether you’re a driver
+      looking for a spot or an admin managing parking operations, ParkMaster
+      has you covered.
+    </p>
+  </div>
+</div>
+
+
+
+            {/* Stats Section */}
+            <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4">
         {/* All Parking Spaces */}
-        <div className="bg-white rounded-[18px] shadow w-[387px] h-[169px] flex flex-col justify-center items-start px-8">
-          <h3 className="text-black text-[64px] font-semibold">50</h3>
+        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
+          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">50</h3>
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             All <span className="text-black">Parking Spaces</span>
           </p>
-          <span className="text-[#494949] text-[13px] font-normal">
+          {/* <span className="text-[#494949] text-[13px] font-normal">
             Information today
-          </span>
+          </span> */}
         </div>
 
         {/* Available Parking Spaces */}
-        <div className="bg-white rounded-[18px] shadow w-[387px] h-[169px] flex flex-col justify-center items-start px-8">
-          <h3 className="text-black text-[64px] font-semibold">25</h3>
+        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
+          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">25</h3>
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             Available <span className="text-black">Parking Spaces</span>
           </p>
-          <span className="text-[#494949] text-[13px] font-normal">
+          {/* <span className="text-[#494949] text-[13px] font-normal">
             Information today
-          </span>
+          </span> */}
         </div>
 
         {/* Booked Parking Spaces */}
-        <div className="bg-white rounded-[18px] shadow w-[387px] h-[169px] flex flex-col justify-center items-start px-8">
-          <h3 className="text-black text-[64px] font-semibold">25</h3>
+        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
+          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">25</h3>
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             Booked <span className="text-black">Parking Spaces</span>
           </p>
-          <span className="text-[#494949] text-[13px] font-normal">
+          {/* <span className="text-[#494949] text-[13px] font-normal">
             Information today
-          </span>
+          </span> */}
         </div>
       </div>
 
       {/* Testimonials Section */}
       <Testimonials />
 
-      {/* Services Section */}
-      <div className="max-w-[927px] mx-auto mt-[200px] flex flex-wrap justify-between">
-        {/* Service Card */}
-        {["24hr Services", "Expert Team", "Excellent Support"].map(
-          (service, index) => (
-            <div key={index} className="text-center w-[275px]">
+
+        {/* Services Section */}
+        <div className="max-w-7xl mx-auto mt-12 lg:mt-20 px-6 sm:px-8 lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+          {["24hr Services", "Expert Team", "Excellent Support"].map((service, index) => (
+            <div key={index} className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
               <img
+                className="mx-auto h-32 w-32"
                 src={`https://via.placeholder.com/227x227`}
                 alt={service}
-                className="mx-auto"
               />
-              <h3 className="text-black text-2xl font-semibold mt-4">
-                {service}
-              </h3>
-              <p className="text-[#8b8b9d] text-base font-semibold mt-2">
-                Sed ut perspiciatis unde omnis iste
-                <br />
-                natus error sit volupta.
+              <h3 className="text-lg font-semibold text-gray-900 mt-4">{service}</h3>
+              <p className="text-sm mt-2 text-gray-600">
+                Sed ut perspiciatis unde omnis iste natus error sit volupta.
               </p>
             </div>
           )
-        )}
+          )}
+        </div>
       </div>
-    </div>
-  );
+      );
 };
 
-export default LandingPage;
+      export default LandingPage;
