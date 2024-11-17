@@ -6,19 +6,19 @@ const testimonials = [
     text: `"ParkMate has transformed parking in Sri Lanka. Finding and reserving a parking space has never been easier. Highly recommend this web for stress-free parking!"`,
     name: "Nimal Perera",
     title: "Frequent User",
-    image: "public/img/Nimal.jpeg",
+    image: "img/Nimal.jpeg",
   },
   {
     text: `"Managing parking lots in Sri Lanka was a challenge. With ParkMate’s tools, our team can now manage operations more efficiently and provide real-time updates to users."`,
     name: "Ruwan Fernando",
     title: "Parking Lot Manager",
-    image: "public/img/Ruwan.jpeg",
+    image: "img/Ruwan.jpeg",
   },
   {
     text: `"ParkMate is a game changer! The web has made parking simple for users in Sri Lanka, especially in high-traffic areas like Colombo."`,
     name: "Ishani De Silva",
     title: "Happy User",
-    image: "public/img/Ishani.jpeg",
+    image: "img/Ishani.jpeg",
   },
 ];
 
@@ -84,7 +84,7 @@ const LandingPage = () => {
         <div>
           <img
             className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
-            src="public\img\parking.png"
+            src="img\parking.png"
             alt="Parking"
           />
         </div>
@@ -156,7 +156,7 @@ const LandingPage = () => {
   <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
     <img
       className="mx-auto h-32 w-32"
-      src="public\img\time.png"  // Replace with the actual image for this service
+      src="img\time.png"  
       alt="24hr Services"
     />
     <h3 className="text-lg font-semibold text-gray-900 mt-4">24hr Services</h3>
@@ -169,7 +169,7 @@ const LandingPage = () => {
   <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
     <img
       className="mx-auto h-32 w-32"
-      src="public\img\team.png"  // Replace with the actual image for this service
+      src="img\team.png"  
       alt="Expert Team"
     />
     <h3 className="text-lg font-semibold text-gray-900 mt-4">Expert Team</h3>
@@ -182,7 +182,7 @@ const LandingPage = () => {
   <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
     <img
       className="mx-auto h-32 w-32"
-      src="public\img\support.png"  // Replace with the actual image for this service
+      src="img\support.png"  
       alt="Excellent Support"
     />
     <h3 className="text-lg font-semibold text-gray-900 mt-4">Excellent Support</h3>
