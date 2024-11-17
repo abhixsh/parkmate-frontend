@@ -80,38 +80,38 @@ const LandingPage = () => {
     <div className="w-full relative bg-white">
       {/* Top Section */}
       <div className="w-full max-w-screen-xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-  {/* Image Section */}
-  <div>
-    <img
-      className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
-      src="src\img\parking.png"
-      alt="Parking"
-    />
-  </div>
+        {/* Image Section */}
+        <div>
+          <img
+            className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
+            src="src\img\parking.png"
+            alt="Parking"
+          />
+        </div>
 
-  {/* Text Section */}
-  <div className="flex flex-col justify-center space-y-4">
-    <p className="text-[#494949] text-lg sm:text-xl md:text-2xl font-semibold">
-      Welcome to ParkMate
-    </p>
-    <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug">
-      Don’t Let Parking be a Hassle.
-      <br />
-      <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
-    </h1>
-    <p className="text-black text-sm md:text-base font-light">
-      Tired of driving around looking for a parking spot? ParkMate makes
-      parking easier, faster, and more convenient. Whether you’re a driver
-      looking for a spot or an admin managing parking operations, ParkMate
-      has you covered.
-    </p>
-  </div>
-</div>
+        {/* Text Section */}
+        <div className="flex flex-col justify-center space-y-4">
+          <p className="text-[#494949] text-lg sm:text-xl md:text-2xl font-semibold">
+            Welcome to ParkMate
+          </p>
+          <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug">
+            Don’t Let Parking be a Hassle.
+            <br />
+            <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
+          </h1>
+          <p className="text-black text-sm md:text-base font-light">
+            Tired of driving around looking for a parking spot? ParkMate makes
+            parking easier, faster, and more convenient. Whether you’re a driver
+            looking for a spot or an admin managing parking operations, ParkMate
+            has you covered.
+          </p>
+        </div>
+      </div>
 
 
 
-            {/* Stats Section */}
-            <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4">
+      {/* Stats Section */}
+      <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4">
         {/* All Parking Spaces */}
         <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
           <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">50</h3>
@@ -150,25 +150,50 @@ const LandingPage = () => {
       <Testimonials />
 
 
-        {/* Services Section */}
-        <div className="max-w-7xl mx-auto mt-12 lg:mt-20 px-6 sm:px-8 lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
-          {["24hr Services", "Expert Team", "Excellent Support"].map((service, index) => (
-            <div key={index} className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
-              <img
-                className="mx-auto h-32 w-32"
-                src={`https://via.placeholder.com/227x227`}
-                alt={service}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 mt-4">{service}</h3>
-              <p className="text-sm mt-2 text-gray-600">
-                Sed ut perspiciatis unde omnis iste natus error sit volupta.
-              </p>
-            </div>
-          )
-          )}
-        </div>
+      {/* Services Section */}
+<div className="max-w-7xl mx-auto mt-12 lg:mt-20 px-6 sm:px-8 lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+  {/* Service 1 */}
+  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
+    <img
+      className="mx-auto h-32 w-32"
+      src="src\img\time.png"  // Replace with the actual image for this service
+      alt="24hr Services"
+    />
+    <h3 className="text-lg font-semibold text-gray-900 mt-4">24hr Services</h3>
+    <p className="text-sm mt-2 text-gray-600">
+      We provide round-the-clock services to ensure you never have to worry about parking.
+    </p>
+  </div>
+
+  {/* Service 2 */}
+  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
+    <img
+      className="mx-auto h-32 w-32"
+      src="src\img\team.png"  // Replace with the actual image for this service
+      alt="Expert Team"
+    />
+    <h3 className="text-lg font-semibold text-gray-900 mt-4">Expert Team</h3>
+    <p className="text-sm mt-2 text-gray-600">
+      Our team of experts ensures the smooth operation of our parking services, helping you with any concerns.
+    </p>
+  </div>
+
+  {/* Service 3 */}
+  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
+    <img
+      className="mx-auto h-32 w-32"
+      src="src\img\support.png"  // Replace with the actual image for this service
+      alt="Excellent Support"
+    />
+    <h3 className="text-lg font-semibold text-gray-900 mt-4">Excellent Support</h3>
+    <p className="text-sm mt-2 text-gray-600">
+      Our support team is always available to assist you with any parking-related issues.
+    </p>
+  </div>
+
       </div>
-      );
+    </div>
+  );
 };
 
-      export default LandingPage;
+export default LandingPage;
