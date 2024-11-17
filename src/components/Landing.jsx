@@ -2,22 +2,22 @@ import { useState, useEffect } from "react";
 
 const testimonials = [
   {
-    text: `"Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application."`,
-    name: "Micheal Gough",
-    title: "CEO at Google",
-    image: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png",
-  },
-  {
-    text: `"ParkMate has revolutionized the way I park. Reserving a spot is now so simple, and I no longer worry about finding parking during peak hours. Highly recommend it!"`,
-    name: "Jessica Green",
+    text: `"ParkMate has transformed parking in Sri Lanka. Finding and reserving a parking space has never been easier. Highly recommend this web for stress-free parking!"`,
+    name: "Nimal Perera",
     title: "Frequent User",
-    image: "https://via.placeholder.com/150",
+    image: "src\img\Nimal.jpeg",
   },
   {
-    text: `"Managing parking spaces has never been easier. The admin tools provided by ParkMate are incredibly intuitive and save us a lot of time."`,
-    name: "John Doe",
-    title: "Parking Admin",
-    image: "https://via.placeholder.com/150",
+    text: `"Managing parking lots in Sri Lanka was a challenge. With ParkMate’s tools, our team can now manage operations more efficiently and provide real-time updates to users."`,
+    name: "Ruwan Fernando",
+    title: "Parking Lot Manager",
+    image: "src\img\Ruwan.jpeg",
+  },
+  {
+    text: `"ParkMate is a game changer! The web has made parking simple for users in Sri Lanka, especially in high-traffic areas like Colombo."`,
+    name: "Ishani De Silva",
+    title: "Happy User",
+    image: "src\img\Ishani.jpeg",
   },
 ];
 
@@ -83,7 +83,7 @@ const LandingPage = () => {
   <div>
     <img
       className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
-      src="https://via.placeholder.com/1280x350"
+      src="src\img\parking.png"
       alt="Parking"
     />
   </div>
@@ -93,15 +93,15 @@ const LandingPage = () => {
     <p className="text-[#494949] text-lg sm:text-xl md:text-2xl font-semibold">
       Welcome to ParkMate
     </p>
-    <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-snug">
+    <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug">
       Don’t Let Parking be a Hassle.
       <br />
       <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
     </h1>
     <p className="text-black text-sm md:text-base font-light">
-      Tired of driving around looking for a parking spot? ParkMaster makes
+      Tired of driving around looking for a parking spot? ParkMate makes
       parking easier, faster, and more convenient. Whether you’re a driver
-      looking for a spot or an admin managing parking operations, ParkMaster
+      looking for a spot or an admin managing parking operations, ParkMate
       has you covered.
     </p>
   </div>
