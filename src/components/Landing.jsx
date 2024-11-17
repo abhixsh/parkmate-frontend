@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 
+
 const testimonials = [
   {
     text: `"ParkMate has transformed parking in Sri Lanka. Finding and reserving a parking space has never been easier. Highly recommend this web for stress-free parking!"`,
     name: "Nimal Perera",
     title: "Frequent User",
-    image: "src\img\Nimal.jpeg",
+    image: "src/img/Nimal.jpeg",
   },
   {
     text: `"Managing parking lots in Sri Lanka was a challenge. With ParkMate’s tools, our team can now manage operations more efficiently and provide real-time updates to users."`,
     name: "Ruwan Fernando",
     title: "Parking Lot Manager",
-    image: "src\img\Ruwan.jpeg",
+    image: "src/img/Ruwan.jpeg",
   },
   {
     text: `"ParkMate is a game changer! The web has made parking simple for users in Sri Lanka, especially in high-traffic areas like Colombo."`,
     name: "Ishani De Silva",
     title: "Happy User",
-    image: "src\img\Ishani.jpeg",
+    image: "src/img/Ishani.jpeg",
   },
 ];
 
