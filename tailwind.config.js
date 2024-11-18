@@ -1,11 +1,11 @@
 export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // This targets all files in the `src` directory
+    "./src/**/*.{js,jsx,ts,tsx}", 
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Lato', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

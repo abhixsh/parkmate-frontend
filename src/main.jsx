@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <AboutUs /> },
       { path:"/login", element: <Login /> },
       { path: "/register", element: <Register />},
-      { path: "/admin-dashboard", element: <AdminDashboard />},
+      { path: "/admin", element: <AdminDashboard />},
       { path: "/manage-parking-spots", element: <ManageParkingSpots />},
       { path: "/manage-reservations", element: <ManageReservations />},
       { path: "/add-parking-spot", element: <AddParkingSpot />},
