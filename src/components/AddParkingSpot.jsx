@@ -1,4 +1,3 @@
-// src/components/AddParkingSpot.jsx
 import React, { useState } from 'react';
 
 const AddParkingSpot = () => {

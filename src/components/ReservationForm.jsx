@@ -1,64 +1,109 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
 export default function ReservationForm() {
-  const [parkingSpots, setParkingSpots] = useState([]);
-  const [form, setForm] = useState({ spotNumber: "", date: "", time: "" });
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchAvailableSpots() {
-      const response = await fetch("http://localhost:5050/parkingSpots");
-      if (response.ok) {
-        const data = await response.json();
-        setParkingSpots(data.filter((spot) => spot.available));
-      }
-    }
-    fetchAvailableSpots();
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await fetch("http://localhost:5050/reservations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    navigate("/reservations");
-  };
-
   return (
-    <div className="container mx-auto p-6 max-w-lg bg-white rounded-lg shadow-lg mt-20">
-      <h3 className="text-2xl font-semibold text-center mb-6">Reserve a Parking Spot</h3>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex flex-col">
-          <label className="text-lg">Select Parking Spot</label>
-          <select
-            value={form.spotNumber}
-            onChange={(e) => setForm({ ...form, spotNumber: e.target.value })}
-            required
-            className="p-3 border rounded-md"
-          >
-            <option value="" disabled>Select a spot</option>
-            {parkingSpots.map((spot) => (
-              <option key={spot._id} value={spot.number}>
-                Spot {spot.number}
-              </option>
-            ))}
-          </select>
+    <div className="bg-white px-6 py-12 sm:px-12 md:px-24 lg:px-32">
+      {/* Heading Section */}
+      <div className="text-center mb-12">
+        <h1 className="text-3xl md:text-5xl font-semibold text-black font-poppins">
+          Reserve Your <span className="text-[#ffbb00]">Parking Spot.</span>
+        </h1>
+        <p className="mt-4 text-sm sm:text-base font-light text-gray-700 max-w-3xl mx-auto">
+          Save time and secure your parking spot in advance! Choose your preferred date, time, and parking slot, and confirm your booking instantly.
+        </p>
+      </div>
+
+      {/* Form Section */}
+      <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 md:p-12 lg:p-16 mx-auto max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-black text-center mb-6 sm:mb-8">Book Your Spot Now</h2>
+
+        <div className="w-full flex justify-center mb-6">
+        <img className="w-full max-w-xs sm:max-w-sm md:max-w-md" src="img/car.png" alt="Booking Image" />
         </div>
-        <div className="flex flex-col">
-          <label className="text-lg">Date</label>
-          <input
-            type="date"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            required
-            className="p-3 border rounded-md"
-          />
+
+        <div className="space-y-6">
+          {/* Full Name Field */}
+          <div>
+            <label htmlFor="fullName" className="block text-lg font-semibold text-black mb-2">Full Name:</label>
+            <input
+              id="fullName"
+              type="text"
+              className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+            />
+          </div>
+
+          {/* Reservation Date Field */}
+          <div>
+            <label htmlFor="reservationDate" className="block text-lg font-semibold text-black mb-2">Select Reservation Date:</label>
+            <input
+              id="reservationDate"
+              type="date"
+              className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+            />
+          </div>
+
+          {/* Vehicle Plate Number & Vehicle Type Fields */}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <label htmlFor="plateNumber" className="block text-lg font-semibold text-black mb-2">Vehicle Plate Number:</label>
+              <input
+                id="plateNumber"
+                type="text"
+                className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="vehicleType" className="block text-lg font-semibold text-black mb-2">Vehicle Type:</label>
+              <input
+                id="vehicleType"
+                type="text"
+                className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+              />
+            </div>
+          </div>
+
+          {/* Start Time & End Time Fields */}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <label htmlFor="startTime" className="block text-lg font-semibold text-black mb-2">Start Time:</label>
+              <input
+                id="startTime"
+                type="time"
+                className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="endTime" className="block text-lg font-semibold text-black mb-2">End Time:</label>
+              <input
+                id="endTime"
+                type="time"
+                className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+              />
+            </div>
+          </div>
+
+          {/* Parking Spot Preference Field */}
+          <div>
+            <label htmlFor="parkingPreference" className="block text-lg font-semibold text-black mb-2">Parking Spot Preference:</label>
+            <input
+              id="parkingPreference"
+              type="text"
+              className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+            />
+          </div>
+
+          {/* Reserve Button */}
+          <div className="text-center">
+            <button className="px-8 py-3 text-lg font-bold text-white bg-[#ffbb00] rounded-lg hover:bg-[#e6a800] transition duration-300">
+              Reserve My Spot
+            </button>
+          </div>
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-md">Reserve</button>
-      </form>
+      </div>
+
+      {/* Map Section */}
+      <div className="text-center mt-12">
+        <h3 className="text-2xl font-semibold text-black">Parking Slot Map</h3>
+        <img className="mt-6 w-full rounded-xl" src="img/parking.png" alt="Parking Map" />
+      </div>
     </div>
   );
 }

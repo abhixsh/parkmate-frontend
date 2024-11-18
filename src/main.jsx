@@ -13,6 +13,8 @@ import AboutUs from "./components/AboutUs";
 import Login from './components/Login';
 import Register from './components/Register';
 import "./index.css";
+import ReservationForm from "./components/ReservationForm";
+import Info from "./components/Info";
 
 const router = createBrowserRouter([
   {
@@ -26,10 +28,12 @@ const router = createBrowserRouter([
       { path: "/about", element: <AboutUs /> },
       { path:"/login", element: <Login /> },
       { path: "/register", element: <Register />},
-      { path: "/admin-dashboard", element: <AdminDashboard />},
+      { path: "/admin", element: <AdminDashboard />},
       { path: "/manage-parking-spots", element: <ManageParkingSpots />},
       { path: "/manage-reservations", element: <ManageReservations />},
       { path: "/add-parking-spot", element: <AddParkingSpot />},
+      {path: "/reservation", element: <ReservationForm />},
+      {path: "/info", element: <Info />}
     ],
   },
 ]);
