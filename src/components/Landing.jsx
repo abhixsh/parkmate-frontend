@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { motion } from "framer-motion"; // Import motion from Framer Motion
 
 const testimonials = [
   {
@@ -35,7 +35,12 @@ const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="bg-white pt-12 md:pt-12">
+    <motion.section
+      className="bg-white pt-12 md:pt-12"
+      initial={{ opacity: 0 }} // Initial opacity for fade-in
+      animate={{ opacity: 1 }} // Final opacity after animation
+      transition={{ duration: 1 }}
+    >
       <div className="max-w-screen-xl px-4 mx-auto text-center">
         <figure className="max-w-screen-md mx-auto transition-all duration-500 ease-in-out">
           <svg
@@ -55,10 +60,13 @@ const Testimonials = () => {
             </p>
           </blockquote>
           <figcaption className="flex items-center justify-center mt-6 space-x-3">
-            <img
+            <motion.img
               className="w-12 h-12 rounded-full"
               src={currentTestimonial.image}
               alt={`${currentTestimonial.name} profile`}
+              initial={{ opacity: 0 }} // Initial opacity for fade-in
+              animate={{ opacity: 1 }} // Final opacity after animation
+              transition={{ duration: 1, delay: 0.5 }} // Delay the image fade-in
             />
             <div className="flex items-center divide-x-2 divide-gray-500">
               <div className="pr-3 font-medium text-gray-900">
@@ -71,7 +79,7 @@ const Testimonials = () => {
           </figcaption>
         </figure>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
@@ -79,13 +87,21 @@ const LandingPage = () => {
   return (
     <div className="w-full relative bg-white">
       {/* Top Section */}
-      <div className="w-full max-w-screen-xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+      <motion.div
+        className="w-full max-w-screen-xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center"
+        initial={{ opacity: 0 }} // Initial opacity for fade-in
+        animate={{ opacity: 1 }} // Final opacity after animation
+        transition={{ duration: 1 }}
+      >
         {/* Image Section */}
         <div>
-          <img
+          <motion.img
             className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
             src="img\parking.png"
             alt="Parking"
+            initial={{ x: -100, opacity: 0 }} // Start from left side, invisible
+            animate={{ x: 0, opacity: 1 }} // Move to original position, fade-in
+            transition={{ duration: 1 }}
           />
         </div>
 
@@ -94,11 +110,16 @@ const LandingPage = () => {
           <p className="text-[#494949] text-lg sm:text-xl md:text-2xl font-semibold">
             Welcome to ParkMate
           </p>
-          <h1 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug">
+          <motion.h1
+            className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug"
+            initial={{ y: -50, opacity: 0 }} // Start from above and invisible
+            animate={{ y: 0, opacity: 1 }} // Move to original position, fade-in
+            transition={{ duration: 1, delay: 0.3 }}
+          >
             Don’t Let Parking be a Hassle.
             <br />
             <span className="text-[#ffbb00]">Reserve Your Spot Today!</span>
-          </h1>
+          </motion.h1>
           <p className="text-black text-sm md:text-base font-light">
             Tired of driving around looking for a parking spot? ParkMate makes
             parking easier, faster, and more convenient. Whether you’re a driver
@@ -106,21 +127,21 @@ const LandingPage = () => {
             has you covered.
           </p>
         </div>
-      </div>
-
-
+      </motion.div>
 
       {/* Stats Section */}
-      <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4">
+      <motion.div
+        className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4"
+        initial={{ opacity: 0 }} // Initial opacity for fade-in
+        animate={{ opacity: 1 }} // Final opacity after animation
+        transition={{ duration: 1 }}
+      >
         {/* All Parking Spaces */}
         <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
           <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">50</h3>
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             All <span className="text-black">Parking Spaces</span>
           </p>
-          {/* <span className="text-[#494949] text-[13px] font-normal">
-            Information today
-          </span> */}
         </div>
 
         {/* Available Parking Spaces */}
@@ -129,9 +150,6 @@ const LandingPage = () => {
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             Available <span className="text-black">Parking Spaces</span>
           </p>
-          {/* <span className="text-[#494949] text-[13px] font-normal">
-            Information today
-          </span> */}
         </div>
 
         {/* Booked Parking Spaces */}
@@ -140,57 +158,66 @@ const LandingPage = () => {
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             Booked <span className="text-black">Parking Spaces</span>
           </p>
-          {/* <span className="text-[#494949] text-[13px] font-normal">
-            Information today
-          </span> */}
         </div>
-      </div>
+      </motion.div>
 
       {/* Testimonials Section */}
       <Testimonials />
 
-
       {/* Services Section */}
-<div className="max-w-7xl mx-auto mt-12 lg:mt-20 px-6 sm:px-8 lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
-  {/* Service 1 */}
-  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
-    <img
-      className="mx-auto h-32 w-32"
-      src="img\time.png"  
-      alt="24hr Services"
-    />
-    <h3 className="text-lg font-semibold text-gray-900 mt-4">24hr Services</h3>
-    <p className="text-sm mt-2 text-gray-600">
-      We provide round-the-clock services to ensure you never have to worry about parking.
-    </p>
-  </div>
+      <div className="max-w-7xl mx-auto mt-12 lg:mt-20 px-6 sm:px-8 lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+        {/* Service 1 */}
+        <motion.div
+          className="text-center px-4 py-6 bg-white rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <img
+            src="img/time.png"
+            alt="Reserve"
+            className="mx-auto w-16 h-16 mb-4"
+          />
+          <h3 className="text-lg font-semibold">24hr Services</h3>
+          <p className="text-sm text-gray-500 mt-2">
+            We provide round-the-clock services to ensure you never have to worry about parking.
+          </p>
+        </motion.div>
 
-  {/* Service 2 */}
-  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
-    <img
-      className="mx-auto h-32 w-32"
-      src="img\team.png"  
-      alt="Expert Team"
-    />
-    <h3 className="text-lg font-semibold text-gray-900 mt-4">Expert Team</h3>
-    <p className="text-sm mt-2 text-gray-600">
-      Our team of experts ensures the smooth operation of our parking services, helping you with any concerns.
-    </p>
-  </div>
+        {/* Service 2 */}
+        <motion.div
+          className="text-center px-4 py-6 bg-white rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <img
+            src="img/team.png"
+            alt="Manage"
+            className="mx-auto w-16 h-16 mb-4"
+          />
+          <h3 className="text-lg font-semibold">Expert Team</h3>
+          <p className="text-sm text-gray-500 mt-2">
+            Our team of experts ensures the smooth operation of our parking services, helping you with any concerns.
+          </p>
+        </motion.div>
 
-  {/* Service 3 */}
-  <div className="text-center px-4 py-6 bg-white rounded-lg shadow-md">
-    <img
-      className="mx-auto h-32 w-32"
-      src="img\support.png"  
-      alt="Excellent Support"
-    />
-    <h3 className="text-lg font-semibold text-gray-900 mt-4">Excellent Support</h3>
-    <p className="text-sm mt-2 text-gray-600">
-      Our support team is always available to assist you with any parking-related issues.
-    </p>
-  </div>
-
+        {/* Service 3 */}
+        <motion.div
+          className="text-center px-4 py-6 bg-white rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+        >
+          <img
+            src="img/support.png"
+            alt="Track"
+            className="mx-auto w-16 h-16 mb-4"
+          />
+          <h3 className="text-lg font-semibold">Excellent Support</h3>
+          <p className="text-sm text-gray-500 mt-2">
+            Our support team is always available to assist you with any parking-related issues.          </p>
+        </motion.div>
       </div>
     </div>
   );
