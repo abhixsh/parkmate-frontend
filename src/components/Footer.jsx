@@ -42,7 +42,7 @@ export default function Footer() {
           </h2>
           <ul className="mt-4 text-sm font-normal font-['Poppins'] leading-7">
             <li><a href="/reservation">Reserve a Spot</a></li>
-            <li><a href="/reservations">My Reservations</a></li>
+            <li><a href="/info">My Reservations</a></li>
             <li><a href="/login">Log In</a></li>
             <li className="hidden sm:block"><a href="/register">Sign Up</a></li>
             <li className="hidden sm:block"><a href="/about">About ParkMate</a></li>
