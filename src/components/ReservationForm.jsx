@@ -16,7 +16,7 @@ export default function ReservationForm() {
         <h2 className="text-2xl sm:text-3xl font-semibold text-black text-center mb-6 sm:mb-8">Book Your Spot Now</h2>
 
         <div className="w-full flex justify-center mb-6">
-          <img className="w-full max-w-xs sm:max-w-md md:max-w-lg" src="https://via.placeholder.com/298x209" alt="Booking Image" />
+        <img className="w-full max-w-xs sm:max-w-sm md:max-w-md" src="img/car.png" alt="Booking Image" />
         </div>
 
         <div className="space-y-6">
@@ -102,7 +102,7 @@ export default function ReservationForm() {
       {/* Map Section */}
       <div className="text-center mt-12">
         <h3 className="text-2xl font-semibold text-black">Parking Slot Map</h3>
-        <img className="mt-6 w-full rounded-xl" src="https://via.placeholder.com/1289x538" alt="Parking Map" />
+        <img className="mt-6 w-full rounded-xl" src="img/parking.png" alt="Parking Map" />
       </div>
     </div>
   );
