@@ -146,7 +146,7 @@ const LandingPage = () => {
 
         {/* Available Parking Spaces */}
         <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
-          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">25</h3>
+          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">21</h3>
           <p className="text-[#ffbb00] text-[17px] font-semibold">
             Available <span className="text-black">Parking Spaces</span>
           </p>
