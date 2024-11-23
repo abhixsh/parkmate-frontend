@@ -21,4 +21,3 @@ jobs:
         run: cp build public
       - name: Deploy to firebase
         run: firebase deploy
-          
