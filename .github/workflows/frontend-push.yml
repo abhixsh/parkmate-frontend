@@ -1,11 +1,11 @@
 name: Host Frontend Using Firebase Hosting
-on: push
-  # push:
-  #   branches:
-  #     - dev
-  # pull_request:
-  #   branches:
-  #     - dev
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -13,11 +13,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Install dependencies
         run: npm install
+
       - name: Build
         run: npm run build
-      - name: Copy files
-        run: cp build public
-      - name: Deploy to firebase
-        run: firebase deploy
+
+      - name: Copy build to public folder
+        run: |
+          mkdir -p public
+          cp -r build public
