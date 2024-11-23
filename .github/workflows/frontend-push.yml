@@ -23,3 +23,7 @@ jobs:
       - name: Copy build to public folder
         run: cp -r build public
           
+      - name: Check files in public
+        run: ls public
+      
+      
