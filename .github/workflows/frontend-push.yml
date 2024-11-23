@@ -21,6 +21,5 @@ jobs:
         run: npm run build
 
       - name: Copy build to public folder
-        run: |
-          mkdir -p public
-          cp -r build public
+        run: cp -r build public
+          
