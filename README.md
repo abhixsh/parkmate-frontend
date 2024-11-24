@@ -32,9 +32,9 @@ ParkMate helps users easily find and reserve parking spaces while providing admi
 - Admin-specific features for managing parking spaces and user roles.
 
 ## Screenshots
-![Landing Page](image.png)
-![Services](image-1.png)
-![Testimonials](image-2.png)
+![Landing Page](img/image.png)
+![Services](img/image-1.png)
+![Testimonials](img/image-2.png)
 ## Getting Started
 ### Installation
 Clone the repository:
