@@ -4,154 +4,181 @@ import { Link } from 'react-router-dom';
 const ManageParkingSpots = () => {
   const [parkingSpots, setParkingSpots] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editSpot, setEditSpot] = useState(null);
+  const [editSpot, setEditSpot] = useState({
+    id: '',
+    spotName: '',
+    location: '',
+    spotType: '',
+    availability: true,
+  });
 
+  // Fetch parking spots from the API
   useEffect(() => {
-    // Fetch parking spots from API (this is an example, update with real API call)
     const fetchParkingSpots = async () => {
-      const response = await fetch('/api/parking-spots');
-      const data = await response.json();
-      setParkingSpots(data);
+      try {
+        const response = await fetch('http://localhost:8080/parkmate/parking-spots');  // Ensure this API path is correct
+        if (response.ok) {
+          const data = await response.json();
+          setParkingSpots(data);
+        } else {
+          alert('Failed to fetch parking spots.');
+        }
+      } catch (error) {
+        console.error('Error fetching parking spots:', error);
+        alert('Error fetching parking spots.');
+      }
     };
 
     fetchParkingSpots();
   }, []);
 
+  // Handle delete functionality
   const handleDelete = async (id) => {
-    // Call API to delete parking spot
-    const response = await fetch(`/api/parking-spots/${id}`, {
-      method: 'DELETE',
-    });
-    if (response.ok) {
-      setParkingSpots(parkingSpots.filter(spot => spot.id !== id));
+    try {
+      const response = await fetch(`/parkmate/parking-spots/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setParkingSpots(parkingSpots.filter(spot => spot.id !== id)); // Remove deleted spot from the state
+      } else {
+        alert('Failed to delete parking spot.');
+      }
+    } catch (error) {
+      console.error('Error deleting parking spot:', error);
+      alert('Error deleting parking spot.');
     }
   };
 
+  // Handle edit functionality
   const handleEdit = (spot) => {
     setIsEditing(true);
-    setEditSpot(spot);
+    setEditSpot({ ...spot });
   };
 
-  const handleSave = async () => {
-    if (isEditing) {
-      // Update parking spot API call
-      const response = await fetch(`/api/parking-spots/${editSpot.id}`, {
+  // Handle update parking spot
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/parkmate/parking-spots/${editSpot.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editSpot),
       });
+
       if (response.ok) {
-        setParkingSpots(parkingSpots.map(spot =>
+        const updatedSpots = parkingSpots.map((spot) =>
           spot.id === editSpot.id ? editSpot : spot
-        ));
+        );
+        setParkingSpots(updatedSpots); // Update the state with the edited spot
         setIsEditing(false);
-        setEditSpot(null);
+        setEditSpot({
+          id: '',
+          spotName: '',
+          location: '',
+          spotType: '',
+          availability: true,
+        });
+      } else {
+        alert('Failed to update parking spot.');
       }
-    } else {
-      // Add new parking spot API call
-      const response = await fetch('/api/parking-spots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editSpot),
-      });
-      if (response.ok) {
-        const newSpot = await response.json();
-        setParkingSpots([...parkingSpots, newSpot]);
-        setEditSpot(null);
-      }
+    } catch (error) {
+      console.error('Error updating parking spot:', error);
+      alert('Error updating parking spot.');
     }
   };
 
+  // Handle input change for the form
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditSpot({ ...editSpot, [name]: value });
+  };
+
   return (
-    <div className="manage-parking-spots bg-gray-100 min-h-screen p-10">
-      <h2 className="text-3xl font-semibold text-[#1A202C] mb-6">Manage Parking Spots</h2>
+    <div>
+      <h1>Manage Parking Spots</h1>
+      <Link to="/add-parking-spot">
+        <button>Add Parking Spot</button>
+      </Link>
 
-      {/* Add/Edit Parking Spot Form */}
-      <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
-        <h3 className="text-2xl font-semibold mb-4">{isEditing ? 'Edit Parking Spot' : 'Add New Parking Spot'}</h3>
-        <form
-          onSubmit={(e) => { e.preventDefault(); handleSave(); }}
-          className="space-y-4"
-        >
-          <div className="flex justify-between space-x-4">
-            <div className="w-1/2">
-              <label className="block text-gray-700 font-semibold mb-2">Spot Name</label>
-              <input
-                type="text"
-                value={editSpot?.name || ''}
-                onChange={(e) => setEditSpot({ ...editSpot, name: e.target.value })}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFBB00]"
-                required
-              />
-            </div>
-            <div className="w-1/2">
-              <label className="block text-gray-700 font-semibold mb-2">Location</label>
-              <input
-                type="text"
-                value={editSpot?.location || ''}
-                onChange={(e) => setEditSpot({ ...editSpot, location: e.target.value })}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFBB00]"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-between space-x-4">
-            <div className="w-1/2">
-              <label className="block text-gray-700 font-semibold mb-2">Spot Type</label>
-              <input
-                type="text"
-                value={editSpot?.type || ''}
-                onChange={(e) => setEditSpot({ ...editSpot, type: e.target.value })}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFBB00]"
-                required
-              />
-            </div>
-            <div className="w-1/2">
-              <label className="block text-gray-700 font-semibold mb-2">Available</label>
-              <input
-                type="checkbox"
-                checked={editSpot?.available || false}
-                onChange={(e) => setEditSpot({ ...editSpot, available: e.target.checked })}
-                className="w-6 h-6 focus:ring-2 focus:ring-[#FFBB00]"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-[#FFBB00] text-white p-3 rounded-lg hover:bg-[#1A202C] hover:text-[#FFBB00] transition duration-300"
-          >
-            {isEditing ? 'Save Changes' : 'Add Parking Spot'}
-          </button>
-        </form>
-      </div>
-
-      {/* Parking Spots List */}
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h3 className="text-2xl font-semibold mb-6">Existing Parking Spots</h3>
-        <ul className="space-y-4">
-          {parkingSpots.map((spot) => (
-            <li key={spot.id} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-md hover:bg-[#FFBB00] hover:text-white transition duration-300">
-              <span>{spot.name} - {spot.location} ({spot.type})</span>
-              <div className="space-x-4">
-                <button
-                  onClick={() => handleEdit(spot)}
-                  className="bg-[#1A202C] text-white px-4 py-2 rounded-lg hover:bg-[#FFBB00] transition duration-300"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(spot.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
+      <table>
+        <thead>
+          <tr>
+            <th>Spot Name</th>
+            <th>Location</th>
+            <th>Spot Type</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {parkingSpots.map(spot => (
+            <tr key={spot.id}>
+              <td>{spot.spotName}</td>
+              <td>{spot.location}</td>
+              <td>{spot.spotType}</td>
+              <td>{spot.availability ? 'Available' : 'Not Available'}</td>
+              <td>
+                <button onClick={() => handleEdit(spot)}>Edit</button>
+                <button onClick={() => handleDelete(spot.id)}>Delete</button>
+              </td>
+            </tr>
           ))}
-        </ul>
-      </div>
+        </tbody>
+      </table>
+
+      {isEditing && (
+        <div>
+          <h2>Edit Parking Spot</h2>
+          <form onSubmit={handleUpdate}>
+            <div>
+              <label>Spot Name:</label>
+              <input
+                type="text"
+                name="spotName"
+                value={editSpot.spotName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Location:</label>
+              <input
+                type="text"
+                name="location"
+                value={editSpot.location}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Spot Type:</label>
+              <input
+                type="text"
+                name="spotType"
+                value={editSpot.spotType}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Availability:</label>
+              <select
+                name="availability"
+                value={editSpot.availability}
+                onChange={handleInputChange}
+              >
+                <option value={true}>Available</option>
+                <option value={false}>Not Available</option>
+              </select>
+            </div>
+            <button type="submit">Update Spot</button>
+            <button type="button" onClick={() => setIsEditing(false)}>
+              Cancel
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
