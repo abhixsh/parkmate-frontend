@@ -20,27 +20,39 @@ const Login = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
 
+      console.log('Response:', response); // Logs the full response object
       const data = await response.json();
+      console.log('Response Data:', data); // Logs the parsed JSON data
 
       if (response.ok) {
-        // Save user data in localStorage
-        localStorage.setItem('user', JSON.stringify({
-          name: data.name,
+        // Saving user data in localStorage
+        console.log('Saving to localStorage:', {
+          name: data.user.fullName,
           email: email,
-          phoneNumber: data.phoneNumber,
-          userId: data.userId,
-        }));
-        
+          phoneNumber: data.user.phoneNumber,
+          userId: data.user.id,
+        });
+      
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            name: data.user.fullName, // Corrected from `data.name` to `data.user.fullName`
+            email: email,
+            phoneNumber: data.user.phoneNumber, // Corrected from `data.phoneNumber` to `data.user.phoneNumber`
+            userId: data.user.id, // Corrected from `data.userId` to `data.user.id`
+          })
+        );
+      
         // Navigate to info page
         navigate('/info');
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
-      }
+      }      
     } catch (error) {
       console.error('Login error:', error);
       setError('An unexpected error occurred. Please try again later.');
