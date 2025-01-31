@@ -54,29 +54,39 @@ const ManageReservations = () => {
         throw new Error('Failed to delete reservation');
       }
 
-      setReservations(reservations.filter(reservation => reservation.reservationID !== id));
+      setReservations(reservations.filter(reservation => reservation.reservationId !== id));
     } catch (err) {
       setError(`Error deleting reservation: ${err.message}`);
     }
   };
 
   const handleEdit = (reservation) => {
+    const formattedReservation = {
+      ...reservation,
+      // Convert Unix timestamp to date string for the date input
+      reservationDate: formatDateForInput(reservation.reservationDate),
+      // Keep Unix timestamps as is for time fields
+      startTime: reservation.startTime,
+      endTime: reservation.endTime
+    };
     setIsEditing(true);
-    setEditReservation(reservation);
+    setEditReservation(formattedReservation);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
 
     try {
+      // Convert the form data to the format expected by the backend
       const reservationData = {
         ...editReservation,
-        reservationDate: new Date(editReservation.reservationDate).toISOString(),
-        startTime: new Date(editReservation.startTime).toISOString(),
-        endTime: new Date(editReservation.endTime).toISOString(),
+        // Ensure all date/time fields are Unix timestamps
+        reservationDate: new Date(editReservation.reservationDate).getTime(),
+        startTime: editReservation.startTime,
+        endTime: editReservation.endTime
       };
 
-      const response = await fetch(`${API_BASE_URL}/${isEditing ? editReservation.reservationID : ''}`, {
+      const response = await fetch(`${API_BASE_URL}/${isEditing ? editReservation.reservationId : ''}`, {
         method: isEditing ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,45 +115,138 @@ const ManageReservations = () => {
     }
   };
 
+  // Format date for display (Unix timestamp to YYYY-MM-DD)
+  const formatDateForInput = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    return date.toISOString().split('T')[0];
+  };
+
+  // Format date for display
+  const formatDateForDisplay = (timestamp) => {
+    if (!timestamp) return '';
+    return new Date(timestamp).toLocaleDateString();
+  };
+
+  // Format time for display (Unix timestamp to HH:MM)
+  const formatTimeForDisplay = (timestamp) => {
+    if (!timestamp) return '';
+    return new Date(timestamp).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+  };
+
+  // Convert time input value to Unix timestamp
+  const handleTimeChange = (field, timeString) => {
+    const [hours, minutes] = timeString.split(':');
+    const date = new Date(editReservation.reservationDate);
+    date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+    setEditReservation({
+      ...editReservation,
+      [field]: date.getTime()
+    });
+  };
+
   return (
     <div className="manage-reservations bg-gray-100 min-h-screen p-10">
       <h2 className="text-3xl font-semibold text-[#1A202C] mb-6">Manage Reservations</h2>
 
       {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">{error}</div>}
 
-      {/* Reservation Form */}
       <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
         <h3 className="text-2xl font-semibold mb-4">{isEditing ? 'Edit Reservation' : 'Add New Reservation'}</h3>
         <form onSubmit={handleSave} className="space-y-4">
-          <input type="text" placeholder="Full Name" value={editReservation.fullName} onChange={(e) => setEditReservation({ ...editReservation, fullName: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="email" placeholder="Email" value={editReservation.email} onChange={(e) => setEditReservation({ ...editReservation, email: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="text" placeholder="Vehicle Type" value={editReservation.vehicleType} onChange={(e) => setEditReservation({ ...editReservation, vehicleType: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="text" placeholder="Vehicle Plate Number" value={editReservation.vehiclePlateNumber} onChange={(e) => setEditReservation({ ...editReservation, vehiclePlateNumber: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="date" placeholder="Reservation Date" value={editReservation.reservationDate} onChange={(e) => setEditReservation({ ...editReservation, reservationDate: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="time" placeholder="Start Time" value={editReservation.startTime} onChange={(e) => setEditReservation({ ...editReservation, startTime: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="time" placeholder="End Time" value={editReservation.endTime} onChange={(e) => setEditReservation({ ...editReservation, endTime: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="text" placeholder="Spot Name" value={editReservation.spotName} onChange={(e) => setEditReservation({ ...editReservation, spotName: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <button type="submit" className="w-full bg-[#FFBB00] text-white p-3 rounded-lg">{isEditing ? 'Save Changes' : 'Add Reservation'}</button>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={editReservation.fullName}
+            onChange={(e) => setEditReservation({ ...editReservation, fullName: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={editReservation.email}
+            onChange={(e) => setEditReservation({ ...editReservation, email: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Vehicle Type"
+            value={editReservation.vehicleType}
+            onChange={(e) => setEditReservation({ ...editReservation, vehicleType: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Vehicle Plate Number"
+            value={editReservation.vehiclePlateNumber}
+            onChange={(e) => setEditReservation({ ...editReservation, vehiclePlateNumber: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="date"
+            value={editReservation.reservationDate}
+            onChange={(e) => setEditReservation({ ...editReservation, reservationDate: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="time"
+            value={editReservation.startTime ? formatTimeForDisplay(editReservation.startTime) : ''}
+            onChange={(e) => handleTimeChange('startTime', e.target.value)}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="time"
+            value={editReservation.endTime ? formatTimeForDisplay(editReservation.endTime) : ''}
+            onChange={(e) => handleTimeChange('endTime', e.target.value)}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Spot Name"
+            value={editReservation.spotName}
+            onChange={(e) => setEditReservation({ ...editReservation, spotName: e.target.value })}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <button type="submit" className="w-full bg-[#FFBB00] text-white p-3 rounded-lg">
+            {isEditing ? 'Save Changes' : 'Add Reservation'}
+          </button>
         </form>
       </div>
 
-      {/* Reservation List */}
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <h3 className="text-2xl font-semibold mb-6">Existing Reservations</h3>
         <ul className="space-y-4">
           {reservations.length > 0 ? (
             reservations.map((reservation) => (
-              <li key={reservation.reservationID} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-md">
+              <li key={reservation.reservationId} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-md">
                 <span className="font-semibold">{reservation.fullName}</span>
                 <span className="mx-2">-</span>
                 <span>{reservation.vehiclePlateNumber}</span>
                 <span className="mx-2">-</span>
-                <span>{reservation.reservationDate}</span>
+                <span>{formatDateForDisplay(reservation.reservationDate)}</span>
                 <span className="mx-2">-</span>
-                <span>{reservation.startTime} - {reservation.endTime}</span>
+                <span>
+                  {formatTimeForDisplay(reservation.startTime)} - {formatTimeForDisplay(reservation.endTime)}
+                </span>
                 <div className="space-x-4">
-                  <button onClick={() => handleEdit(reservation)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">Edit</button>
-                  <button onClick={() => handleDelete(reservation.reservationID)} className="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+                  <button onClick={() => handleEdit(reservation)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(reservation.reservationId)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                    Delete
+                  </button>
                 </div>
               </li>
             ))
