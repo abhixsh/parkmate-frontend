@@ -11,16 +11,18 @@ const AdminDashboard = () => {
     if (user) {
       setUserDetails(user);  // Set the user details state
       fetchUserReservations(user.email);  // Fetch reservations for the logged-in user
+    } else {
+      setLoading(false);  // If no user is found, stop the loading
     }
   }, []);
 
   // Function to fetch reservations by user email
   const fetchUserReservations = async (email) => {
     try {
-      const response = await fetch('http://localhost:8080/parkmate/reservation', {
+      const response = await fetch(`http://localhost:8080/parkmate/reservation/email/${email}`, {
         method: 'GET',
         headers: {
-          'Authorization': email,  // Send email in header as Authorization
+          'Content-Type': 'application/json',
         },
       });
 
@@ -37,8 +39,41 @@ const AdminDashboard = () => {
     }
   };
 
-  if (!userDetails || loading) {
+  // Function to format Unix timestamps into readable date format (MM/DD/YYYY)
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000);  // Convert seconds to milliseconds
+
+    // Get MM/DD/YYYY format
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');  // Months are zero-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;  // Return formatted date
+  };
+
+  // Function to format Unix timestamps into time format (HH:MM:SS AM/PM)
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000);  // Convert seconds to milliseconds
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = (hours % 12) || 12;  // Convert to 12-hour format
+
+    return `${formattedHours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${period}`;
+  };
+
+  if (loading) {
     return <div>Loading...</div>;  // Show a loading state while waiting for user data and reservations
+  }
+
+  if (!userDetails) {
+    return (
+      <div className="text-center">
+        <h2 className="text-xl font-semibold">Please log in to view your reservations</h2>
+      </div>
+    );
   }
 
   return (
@@ -116,15 +151,15 @@ const AdminDashboard = () => {
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Reservation Date:</span>
-                <span className="font-normal">{reservation.reservationDate}</span>
+                <span className="font-normal">{formatDate(reservation.reservationDate)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Start Time:</span>
-                <span className="font-normal">{reservation.startTime}</span>
+                <span className="font-normal">{formatTime(reservation.startTime)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">End Time:</span>
-                <span className="font-normal">{reservation.endTime}</span>
+                <span className="font-normal">{formatTime(reservation.endTime)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Parking Spot:</span>
