@@ -5,8 +5,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -37,22 +35,25 @@ const Login = () => {
           phoneNumber: data.user.phoneNumber,
           userId: data.user.id,
         });
-      
+
         localStorage.setItem(
           'user',
           JSON.stringify({
-            name: data.user.fullName, // Corrected from `data.name` to `data.user.fullName`
+            name: data.user.fullName,
             email: email,
-            phoneNumber: data.user.phoneNumber, // Corrected from `data.phoneNumber` to `data.user.phoneNumber`
-            userId: data.user.id, // Corrected from `data.userId` to `data.user.id`
+            phoneNumber: data.user.phoneNumber,
+            userId: data.user.id,
           })
         );
-      
-        // Navigate to info page
-        navigate('/info');
+
+        // Navigate to "My Reservations" page (or the relevant page for user info)
+        navigate('/info');  // First, navigate to the "My Reservations" page
+
+        // Then reload the page to apply changes
+        window.location.reload();  // Refresh page after navigation
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
-      }      
+      }
     } catch (error) {
       console.error('Login error:', error);
       setError('An unexpected error occurred. Please try again later.');

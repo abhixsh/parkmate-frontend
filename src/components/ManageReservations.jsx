@@ -4,6 +4,7 @@ const ManageReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editReservation, setEditReservation] = useState({
+    reservationId: '',
     fullName: '',
     email: '',
     vehicleType: '',
@@ -76,16 +77,20 @@ const ManageReservations = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
-    try {
-      // Convert the form data to the format expected by the backend
-      const reservationData = {
-        ...editReservation,
-        // Ensure all date/time fields are Unix timestamps
-        reservationDate: new Date(editReservation.reservationDate).getTime(),
-        startTime: editReservation.startTime,
-        endTime: editReservation.endTime
-      };
+    const reservationData = {
+      ...editReservation,
+      reservationId: isEditing ? editReservation.reservationId : undefined, // don't send reservationId when creating new
+      reservationDate: editReservation.reservationDate ? new Date(editReservation.reservationDate).getTime() : null,
+      startTime: editReservation.startTime ? new Date(editReservation.startTime).getTime() : null,
+      endTime: editReservation.endTime ? new Date(editReservation.endTime).getTime() : null
+    };
 
+    if (!reservationData.reservationDate || !reservationData.startTime || !reservationData.endTime) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    try {
       const response = await fetch(`${API_BASE_URL}/${isEditing ? editReservation.reservationId : ''}`, {
         method: isEditing ? 'PUT' : 'POST',
         headers: {
@@ -101,6 +106,7 @@ const ManageReservations = () => {
       fetchReservations();
       setIsEditing(false);
       setEditReservation({
+        reservationId: '', // Reset reservationId when creating a new one
         fullName: '',
         email: '',
         vehicleType: '',
@@ -114,6 +120,7 @@ const ManageReservations = () => {
       setError(`Error saving reservation: ${err.message}`);
     }
   };
+
 
   // Format date for display (Unix timestamp to YYYY-MM-DD)
   const formatDateForInput = (timestamp) => {

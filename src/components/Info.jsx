@@ -1,6 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AdminDashboard = () => {
+  const [userDetails, setUserDetails] = useState(null);
+  const [reservations, setReservations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user details from localStorage and reservations on component mount
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setUserDetails(user);  // Set the user details state
+      fetchUserReservations(user.email);  // Fetch reservations for the logged-in user
+    }
+  }, []);
+
+  // Function to fetch reservations by user email
+  const fetchUserReservations = async (email) => {
+    try {
+      const response = await fetch('http://localhost:8080/parkmate/reservation', {
+        method: 'GET',
+        headers: {
+          'Authorization': email,  // Send email in header as Authorization
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setReservations(data);  // Set the reservations state with fetched data
+      } else {
+        console.error('Failed to fetch reservations');
+      }
+    } catch (error) {
+      console.error('Error fetching reservations:', error);
+    } finally {
+      setLoading(false);  // Set loading to false after data is fetched
+    }
+  };
+
+  if (!userDetails || loading) {
+    return <div>Loading...</div>;  // Show a loading state while waiting for user data and reservations
+  }
+
   return (
     <div className="bg-white px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
       {/* Heading */}
@@ -25,19 +65,15 @@ const AdminDashboard = () => {
             <div className="space-y-2 sm:space-y-4 text-sm sm:text-base">
               <div className="flex justify-between">
                 <span className="font-semibold">Full Name:</span>
-                <span className="font-normal">Abishek Haththakage</span>
+                <span className="font-normal">{userDetails.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-semibold">Email Address:</span>
-                <span className="font-normal">aloka.abishek@gmail.com</span>
+                <span className="font-semibold">Email :</span>
+                <span className="font-normal">{userDetails.email}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Phone Number:</span>
-                <span className="font-normal">076-5576407</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Username:</span>
-                <span className="font-normal">abhixsh</span>
+                <span className="font-normal">{userDetails.phoneNumber}</span>
               </div>
             </div>
           </div>
@@ -60,41 +96,45 @@ const AdminDashboard = () => {
       {/* Reservations Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl lg:max-w-7xl mx-auto">
         {/* Reservation Card */}
-        {[...Array(2)].map((_, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg sm:rounded-2xl shadow-md p-4 sm:p-6 space-y-2 sm:space-y-4 text-sm sm:text-base"
-          >
-            <div className="flex justify-between">
-              <span className="font-semibold">Full Name:</span>
-              <span className="font-normal">Abishek Haththakage</span>
+        {reservations.length > 0 ? (
+          reservations.map((reservation) => (
+            <div
+              key={reservation.reservationId}
+              className="bg-white rounded-lg sm:rounded-2xl shadow-md p-4 sm:p-6 space-y-2 sm:space-y-4 text-sm sm:text-base"
+            >
+              <div className="flex justify-between">
+                <span className="font-semibold">Full Name:</span>
+                <span className="font-normal">{reservation.fullName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Vehicle Type:</span>
+                <span className="font-normal">{reservation.vehicleType}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Vehicle Plate Number:</span>
+                <span className="font-normal">{reservation.vehiclePlateNumber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Reservation Date:</span>
+                <span className="font-normal">{reservation.reservationDate}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Start Time:</span>
+                <span className="font-normal">{reservation.startTime}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">End Time:</span>
+                <span className="font-normal">{reservation.endTime}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Parking Spot:</span>
+                <span className="font-semibold text-[#32e316]">{reservation.spotName}</span>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Vehicle Type:</span>
-              <span className="font-normal">Motorcycle</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Vehicle Plate Number:</span>
-              <span className="font-normal">XYZ-5678</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Reservation Date:</span>
-              <span className="font-normal">Nov 18, 2024</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Start Time:</span>
-              <span className="font-normal">3:00 PM</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">End Time:</span>
-              <span className="font-normal">4:00 PM</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Parking Spot:</span>
-              <span className="font-semibold text-[#32e316]">31-B</span>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div>No reservations found</div>
+        )}
       </div>
     </div>
   );
