@@ -36,7 +36,7 @@ const Register = () => {
       fullName: formData.name,
       email: formData.email,
       password: formData.password,
-      phoneNumber: formData.phoneNumber, // Sending phone number to the server
+      phoneNumber: formData.phoneNumber, 
     };
 
     try {
@@ -88,7 +88,6 @@ const Register = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Input */}
             <div>
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -108,7 +107,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Email Input */}
             <div>
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -128,7 +126,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Phone Number Input */}
             <div>
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -148,7 +145,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Password Input */}
             <div>
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -169,7 +165,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Confirm Password Input */}
             <div>
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -190,7 +185,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Register Button */}
             <button
               type="submit"
               className="w-full bg-[#FFBB00] text-white text-lg font-semibold py-3 rounded-md hover:bg-yellow-600 transition disabled:opacity-50 disabled:cursor-not-allowed"

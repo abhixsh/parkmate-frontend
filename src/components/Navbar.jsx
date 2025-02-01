@@ -5,7 +5,6 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Check if the user is logged in (localStorage contains user details)
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
@@ -13,7 +12,6 @@ const Navbar = () => {
     }
   }, []);
 
-  // Handle logout by clearing localStorage and resetting user state
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
@@ -32,7 +30,6 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Hamburger Menu for Mobile */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="sm:hidden text-[#494949] focus:outline-none"
@@ -48,7 +45,6 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* Navigation Links for Desktop */}
         <div className="hidden sm:flex items-center space-x-8">
           <Link
             to="/reservation"
@@ -70,7 +66,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Authentication Buttons or User Info */}
         <div className="hidden sm:flex items-center space-x-4">
           {user ? (
             <>
@@ -103,7 +98,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Dropdown Menu for Mobile */}
       {isMenuOpen && (
         <div className="absolute top-[76px] left-0 w-full bg-white shadow-lg z-50">
           <div className="flex flex-col items-start px-6 py-4 space-y-2">

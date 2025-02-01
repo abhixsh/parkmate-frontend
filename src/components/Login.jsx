@@ -23,12 +23,11 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log('Response:', response); // Logs the full response object
+      console.log('Response:', response); 
       const data = await response.json();
-      console.log('Response Data:', data); // Logs the parsed JSON data
+      console.log('Response Data:', data); 
 
       if (response.ok) {
-        // Saving user data in localStorage
         console.log('Saving to localStorage:', {
           name: data.user.fullName,
           email: email,
@@ -46,11 +45,10 @@ const Login = () => {
           })
         );
 
-        // Navigate to "My Reservations" page (or the relevant page for user info)
-        navigate('/info');  // First, navigate to the "My Reservations" page
+        navigate('/info');  
 
-        // Then reload the page to apply changes
-        window.location.reload();  // Refresh page after navigation
+        
+        window.location.reload();  
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }

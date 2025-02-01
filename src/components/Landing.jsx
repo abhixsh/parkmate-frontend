@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // Import motion from Framer Motion
+import { motion } from "framer-motion"; 
 
 const testimonials = [
   {
@@ -28,7 +28,7 @@ const Testimonials = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 5000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -37,8 +37,8 @@ const Testimonials = () => {
   return (
     <motion.section
       className="bg-white pt-12 md:pt-12"
-      initial={{ opacity: 0 }} // Initial opacity for fade-in
-      animate={{ opacity: 1 }} // Final opacity after animation
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
       transition={{ duration: 1 }}
     >
       <div className="max-w-screen-xl px-4 mx-auto text-center">
@@ -64,9 +64,9 @@ const Testimonials = () => {
               className="w-12 h-12 rounded-full"
               src={currentTestimonial.image}
               alt={`${currentTestimonial.name} profile`}
-              initial={{ opacity: 0 }} // Initial opacity for fade-in
-              animate={{ opacity: 1 }} // Final opacity after animation
-              transition={{ duration: 1, delay: 0.5 }} // Delay the image fade-in
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ duration: 1, delay: 0.5 }} 
             />
             <div className="flex items-center divide-x-2 divide-gray-500">
               <div className="pr-3 font-medium text-gray-900">
@@ -89,8 +89,8 @@ const LandingPage = () => {
       {/* Top Section */}
       <motion.div
         className="w-full max-w-screen-xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center"
-        initial={{ opacity: 0 }} // Initial opacity for fade-in
-        animate={{ opacity: 1 }} // Final opacity after animation
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
         transition={{ duration: 1 }}
       >
         {/* Image Section */}
@@ -99,8 +99,8 @@ const LandingPage = () => {
             className="w-full h-56 sm:h-64 md:h-72 lg:h-80 rounded-xl object-cover"
             src="img\parking.png"
             alt="Parking"
-            initial={{ x: -100, opacity: 0 }} // Start from left side, invisible
-            animate={{ x: 0, opacity: 1 }} // Move to original position, fade-in
+            initial={{ x: -100, opacity: 0 }} 
+            animate={{ x: 0, opacity: 1 }} 
             transition={{ duration: 1 }}
           />
         </div>
@@ -112,8 +112,8 @@ const LandingPage = () => {
           </p>
           <motion.h1
             className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-snug"
-            initial={{ y: -50, opacity: 0 }} // Start from above and invisible
-            animate={{ y: 0, opacity: 1 }} // Move to original position, fade-in
+            initial={{ y: -50, opacity: 0 }} 
+            animate={{ y: 0, opacity: 1 }} 
             transition={{ duration: 1, delay: 0.3 }}
           >
             Don’t Let Parking be a Hassle.

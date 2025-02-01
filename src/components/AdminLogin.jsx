@@ -65,7 +65,7 @@ const Login = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Email Input */}
+        
         <div>
           <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
             Email Address:
@@ -81,7 +81,7 @@ const Login = () => {
           />
         </div>
 
-        {/* Password Input */}
+        
         <div>
           <label className="block text-gray-700 font-medium mb-2" htmlFor="password">
             Password:
@@ -97,7 +97,7 @@ const Login = () => {
           />
         </div>
 
-        {/* Login Button */}
+        
         <button
           type="submit"
           className="w-full bg-[#FFBB00] text-white text-lg font-semibold py-3 rounded-md hover:bg-yellow-600 transition disabled:opacity-50 disabled:cursor-not-allowed"

@@ -64,9 +64,7 @@ const ManageReservations = () => {
   const handleEdit = (reservation) => {
     const formattedReservation = {
       ...reservation,
-      // Convert Unix timestamp to date string for the date input
       reservationDate: formatDateForInput(reservation.reservationDate),
-      // Keep Unix timestamps as is for time fields
       startTime: reservation.startTime,
       endTime: reservation.endTime
     };
@@ -79,7 +77,7 @@ const ManageReservations = () => {
 
     const reservationData = {
       ...editReservation,
-      reservationId: isEditing ? editReservation.reservationId : undefined, // don't send reservationId when creating new
+      reservationId: isEditing ? editReservation.reservationId : undefined, 
       reservationDate: editReservation.reservationDate ? new Date(editReservation.reservationDate).getTime() : null,
       startTime: editReservation.startTime ? new Date(editReservation.startTime).getTime() : null,
       endTime: editReservation.endTime ? new Date(editReservation.endTime).getTime() : null
@@ -106,7 +104,7 @@ const ManageReservations = () => {
       fetchReservations();
       setIsEditing(false);
       setEditReservation({
-        reservationId: '', // Reset reservationId when creating a new one
+        reservationId: '', 
         fullName: '',
         email: '',
         vehicleType: '',
@@ -122,20 +120,17 @@ const ManageReservations = () => {
   };
 
 
-  // Format date for display (Unix timestamp to YYYY-MM-DD)
   const formatDateForInput = (timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
     return date.toISOString().split('T')[0];
   };
 
-  // Format date for display
   const formatDateForDisplay = (timestamp) => {
     if (!timestamp) return '';
     return new Date(timestamp).toLocaleDateString();
   };
 
-  // Format time for display (Unix timestamp to HH:MM)
   const formatTimeForDisplay = (timestamp) => {
     if (!timestamp) return '';
     return new Date(timestamp).toLocaleTimeString('en-US', {
@@ -145,7 +140,6 @@ const ManageReservations = () => {
     });
   };
 
-  // Convert time input value to Unix timestamp
   const handleTimeChange = (field, timeString) => {
     const [hours, minutes] = timeString.split(':');
     const date = new Date(editReservation.reservationDate);

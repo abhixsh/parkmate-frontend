@@ -42,7 +42,6 @@ const ManageParkingSpots = () => {
     }
   };
 
-  // Handle deleting a parking spot
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${API_BASE_URL}/${id}`, {
@@ -59,13 +58,11 @@ const ManageParkingSpots = () => {
     }
   };
 
-  // Handle editing a parking spot
   const handleEdit = (spot) => {
     setIsEditing(true);
     setEditSpot(spot);
   };
 
-  // Handle adding or updating a parking spot
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -87,7 +84,7 @@ const ManageParkingSpots = () => {
         throw new Error(isEditing ? 'Failed to update parking spot' : 'Failed to create parking spot');
       }
 
-      fetchParkingSpots(); // Refresh parking spot list
+      fetchParkingSpots(); 
       setIsEditing(false);
       setEditSpot({ name: '', location: '', type: '', hourlyRate: '', isAvailable: false });
     } catch (err) {
@@ -105,7 +102,7 @@ const ManageParkingSpots = () => {
         </div>
       )}
 
-      {/* Add or Edit Parking Spot Form */}
+
       <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8 transition-all duration-300 hover:shadow-xl">
         <h3 className="text-2xl font-bold mb-6 text-gray-800">
           {isEditing ? 'Edit Parking Spot' : 'Add New Parking Spot'}
@@ -163,7 +160,6 @@ const ManageParkingSpots = () => {
         </form>
       </div>
 
-      {/* Parking Spots List */}
       <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
         <h3 className="text-2xl font-bold mb-6 text-gray-800">Existing Parking Spots</h3>
         <div className="space-y-4">

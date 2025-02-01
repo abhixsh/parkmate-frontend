@@ -5,18 +5,16 @@ const AdminDashboard = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user details from localStorage and reservations on component mount
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      setUserDetails(user);  // Set the user details state
-      fetchUserReservations(user.email);  // Fetch reservations for the logged-in user
+      setUserDetails(user);  
+      fetchUserReservations(user.email);  
     } else {
-      setLoading(false);  // If no user is found, stop the loading
+      setLoading(false);  
     }
   }, []);
 
-  // Function to fetch reservations by user email
   const fetchUserReservations = async (email) => {
     try {
       const response = await fetch(`http://localhost:8080/parkmate/reservation/email/${email}`, {
@@ -28,44 +26,41 @@ const AdminDashboard = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setReservations(data);  // Set the reservations state with fetched data
+        setReservations(data);  
       } else {
         console.error('Failed to fetch reservations');
       }
     } catch (error) {
       console.error('Error fetching reservations:', error);
     } finally {
-      setLoading(false);  // Set loading to false after data is fetched
+      setLoading(false);  
     }
   };
 
-  // Function to format Unix timestamps into readable date format (MM/DD/YYYY)
   const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000);  // Convert seconds to milliseconds
+    const date = new Date(timestamp * 1000);  
 
-    // Get MM/DD/YYYY format
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');  // Months are zero-indexed
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');  
     const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear();
 
-    return `${month}/${day}/${year}`;  // Return formatted date
+    return `${month}/${day}/${year}`;  
   };
 
-  // Function to format Unix timestamps into time format (HH:MM:SS AM/PM)
   const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000);  // Convert seconds to milliseconds
+    const date = new Date(timestamp * 1000);  
 
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = (hours % 12) || 12;  // Convert to 12-hour format
+    const formattedHours = (hours % 12) || 12;  
 
     return `${formattedHours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${period}`;
   };
 
   if (loading) {
-    return <div>Loading...</div>;  // Show a loading state while waiting for user data and reservations
+    return <div>Loading...</div>;  
   }
 
   if (!userDetails) {

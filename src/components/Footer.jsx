@@ -4,10 +4,10 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer className="w-full relative bg-[#ffbb00] text-black clear-both">
-      {/* Background and container */}
+
       <div className="w-full h-auto flex flex-col lg:flex-row justify-between items-start px-6 lg:px-24 py-6">
-        
-        {/* Logo and Description */}
+
+
         <div className="max-w-sm mb-6 lg:mb-0">
           <h1 className="text-[32px] font-extrabold font-['Poppins']">
             <span className="text-white">Park</span>
@@ -18,7 +18,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Working Hours - Hidden on Mobile */}
+
         <div className="hidden sm:block mb-6 lg:mb-0">
           <h2 className="text-2xl font-medium font-['Poppins']">
             <span className="text-[#f7d914]">| </span>Working Days
@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Services Section */}
+
         <div className="mb-6 lg:mb-0">
           <h2 className="text-2xl font-medium font-['Poppins']">
             <span className="text-[#f7d914]">| </span>Our Services
@@ -49,7 +49,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact Details */}
+
         <div>
           <h2 className="text-2xl font-medium font-['Poppins']">
             <span className="text-[#f7d914]">| </span>Contact Us
@@ -59,7 +59,7 @@ export default function Footer() {
             <span>Info@parkmate.com</span> <br />
             <span>Support@parkmate.com</span>
           </p>
-          {/* Social Media Icons */}
+
           <div className="flex mt-4 space-x-4">
             <a
               href="https://facebook.com"

@@ -7,7 +7,7 @@ const AdminRegister = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: '', 
+        role: '',
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ const AdminRegister = () => {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Email Input */}
+
                         <div>
                             <label
                                 className="block text-gray-700 font-medium mb-2"
@@ -105,7 +105,7 @@ const AdminRegister = () => {
                             />
                         </div>
 
-                        {/* Role Input (Dropdown) */}
+
                         <div>
                             <label
                                 className="block text-gray-700 font-medium mb-2"
@@ -128,7 +128,7 @@ const AdminRegister = () => {
                             </select>
                         </div>
 
-                        {/* Password Input */}
+
                         <div>
                             <label
                                 className="block text-gray-700 font-medium mb-2"
@@ -149,7 +149,7 @@ const AdminRegister = () => {
                             />
                         </div>
 
-                        {/* Confirm Password Input */}
+
                         <div>
                             <label
                                 className="block text-gray-700 font-medium mb-2"
@@ -170,7 +170,7 @@ const AdminRegister = () => {
                             />
                         </div>
 
-                        {/* Register Button */}
+
                         <button
                             type="submit"
                             className="w-full bg-[#FFBB00] text-white text-lg font-semibold py-3 rounded-md hover:bg-yellow-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
