@@ -18,7 +18,7 @@ const ManageParkingSpots = () => {
     fetchParkingSpots();
   }, []);
 
-  // Fetch all parking spots
+
   const fetchParkingSpots = async () => {
     try {
       const response = await fetch(API_BASE_URL, {
@@ -96,54 +96,117 @@ const ManageParkingSpots = () => {
   };
 
   return (
-    <div className="manage-parking-spots bg-gray-100 min-h-screen p-10">
-      <h2 className="text-3xl font-semibold text-[#1A202C] mb-6">Manage Parking Spots</h2>
+    <div className="manage-parking-spots bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-6 md:p-10">
+      <h2 className="text-3xl font-bold text-[#1A202C] mb-8 border-b pb-4">Manage Parking Spots</h2>
 
-      {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">{error}</div>}
+      {error && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r animate-fadeIn">
+          {error}
+        </div>
+      )}
 
       {/* Add or Edit Parking Spot Form */}
-      <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
-        <h3 className="text-2xl font-semibold mb-4">{isEditing ? 'Edit Parking Spot' : 'Add New Parking Spot'}</h3>
-        <form onSubmit={handleSave} className="space-y-4">
-          <input type="text" placeholder="Spot Name" value={editSpot.name} onChange={(e) => setEditSpot({ ...editSpot, name: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="text" placeholder="Location" value={editSpot.location} onChange={(e) => setEditSpot({ ...editSpot, location: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="text" placeholder="Type" value={editSpot.type} onChange={(e) => setEditSpot({ ...editSpot, type: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <input type="number" placeholder="Hourly Rate" step="0.01" min="0" value={editSpot.hourlyRate} onChange={(e) => setEditSpot({ ...editSpot, hourlyRate: e.target.value })} className="w-full p-3 border rounded-lg" required />
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" checked={editSpot.isAvailable} onChange={(e) => setEditSpot({ ...editSpot, isAvailable: e.target.checked })} />
-            <span>Available</span>
+      <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8 transition-all duration-300 hover:shadow-xl">
+        <h3 className="text-2xl font-bold mb-6 text-gray-800">
+          {isEditing ? 'Edit Parking Spot' : 'Add New Parking Spot'}
+        </h3>
+        <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input
+            type="text"
+            placeholder="Spot Name"
+            value={editSpot.name}
+            onChange={(e) => setEditSpot({ ...editSpot, name: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent outline-none transition-all"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Location"
+            value={editSpot.location}
+            onChange={(e) => setEditSpot({ ...editSpot, location: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent outline-none transition-all"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Type"
+            value={editSpot.type}
+            onChange={(e) => setEditSpot({ ...editSpot, type: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent outline-none transition-all"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Hourly Rate"
+            step="0.01"
+            min="0"
+            value={editSpot.hourlyRate}
+            onChange={(e) => setEditSpot({ ...editSpot, hourlyRate: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent outline-none transition-all"
+            required
+          />
+          <label className="flex items-center space-x-3 md:col-span-2">
+            <input
+              type="checkbox"
+              checked={editSpot.isAvailable}
+              onChange={(e) => setEditSpot({ ...editSpot, isAvailable: e.target.checked })}
+              className="w-5 h-5 rounded text-[#FFBB00]"
+            />
+            <span className="text-gray-700">Available</span>
           </label>
-          <button type="submit" className="w-full bg-[#FFBB00] text-white p-3 rounded-lg">{isEditing ? 'Save Changes' : 'Add Parking Spot'}</button>
+          <button
+            type="submit"
+            className="md:col-span-2 bg-[#FFBB00] text-white p-4 rounded-lg font-semibold hover:bg-[#E5A800] transition-colors duration-300"
+          >
+            {isEditing ? 'Save Changes' : 'Add Parking Spot'}
+          </button>
         </form>
       </div>
 
       {/* Parking Spots List */}
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h3 className="text-2xl font-semibold mb-6">Existing Parking Spots</h3>
-        <ul className="space-y-4">
+      <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+        <h3 className="text-2xl font-bold mb-6 text-gray-800">Existing Parking Spots</h3>
+        <div className="space-y-4">
           {parkingSpots.length > 0 ? (
             parkingSpots.map((spot) => (
-              <li key={spot.id || Math.random()} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-md">
-                <span className="font-semibold">{spot.name || `Spot ${spot.id}`}</span>
-                <span className="mx-2">-</span>
-                <span>{spot.location || 'Unknown Location'}</span>
-                <span className="mx-2">-</span>
-                <span>{spot.type || 'Unknown Type'}</span>
-                <span className="mx-2">-</span>
-                <span>${spot.hourlyRate ? spot.hourlyRate.toFixed(2) : '0.00'}/hr</span>
-                <span className={`ml-4 px-2 py-1 rounded ${spot.isAvailable ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
-                  {spot.isAvailable ? 'Available' : 'Occupied'}
-                </span>
-                <div className="space-x-4">
-                  <button onClick={() => handleEdit(spot)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">Edit</button>
-                  <button onClick={() => handleDelete(spot.id)} className="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+              <div
+                key={spot.id || Math.random()}
+                className="flex flex-col md:flex-row md:justify-between md:items-center p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4 md:mb-0">
+                  <span className="font-semibold text-lg">{spot.name || `Spot ${spot.id}`}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">{spot.location || 'Unknown Location'}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">{spot.type || 'Unknown Type'}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="font-medium">${spot.hourlyRate ? spot.hourlyRate.toFixed(2) : '0.00'}/hr</span>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    spot.isAvailable ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  }`}>
+                    {spot.isAvailable ? 'Available' : 'Occupied'}
+                  </span>
                 </div>
-              </li>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleEdit(spot)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(spot.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-300"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             ))
           ) : (
-            <p className="text-gray-500">No parking spots available.</p>
+            <p className="text-gray-500 text-center">No parking spots found</p>
           )}
-        </ul>
+        </div>
       </div>
     </div>
   );

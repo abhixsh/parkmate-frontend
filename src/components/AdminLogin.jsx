@@ -2,114 +2,113 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
 
-    try {
-      // Send the POST request with JSON data
-      const response = await fetch('http://localhost:8080/parkmate/admin/login', {
-        method: 'POST', // Make sure to use POST
-        headers: {
-          'Content-Type': 'application/json', // Sending data as JSON
-          'Accept': 'application/json', // Accepting JSON responses
-        },
-        body: JSON.stringify({ email, password }), // Sending email and password in the request body
-      });
+        try {
+            const response = await fetch('http://localhost:8080/parkmate/admin/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json', 
+                },
+                body: JSON.stringify({ email, password }), 
+            });
 
-      const data = await response.json();
+            const data = await response.json();
 
-      if (response.ok) {
-        // Saving admin data to localStorage
-        localStorage.setItem('admin', JSON.stringify({
-          email: email,
-          role: data.admin.role,
-          adminId: data.admin.adminId,
-        }));
+            if (response.ok) {
 
-        // Redirect to admin dashboard after successful login
-        navigate('/admin/dashboard');
-      } else {
-        setError(data.message || 'Login failed. Please check your credentials.');
-      }
-    } catch (error) {
-      setError('An unexpected error occurred. Please try again later.');
-      console.error('Login error:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+                localStorage.setItem('admin', JSON.stringify({
+                    email: email,
+                    role: data.admin.role,
+                    adminId: data.admin.adminId,
+                }));
 
-  return (
-    <div className="container mx-auto p-6 max-w-lg bg-white rounded-lg shadow-lg mt-10 mb-10">
-      <h2 className="text-3xl font-bold text-center text-[#FFBB00] mb-6">
-        Admin Login
-      </h2>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
+                navigate('/admin/dashboard');
+            } else {
+                setError(data.message || 'Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            setError('An unexpected error occurred. Please try again later.');
+            console.error('Login error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="container mx-auto p-6 max-w-lg bg-white rounded-lg shadow-lg mt-10 mb-10">
+            <h2 className="text-3xl font-bold text-center text-[#FFBB00] mb-6">
+                Admin Login
+            </h2>
+
+            {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {error}
+                </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+                
+                <div>
+                    <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
+                        Email Address:
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFBB00] focus:outline-none"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        disabled={loading}
+                    />
+                </div>
+
+                
+                <div>
+                    <label className="block text-gray-700 font-medium mb-2" htmlFor="password">
+                        Password:
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFBB00] focus:outline-none"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        disabled={loading}
+                    />
+                </div>
+
+                
+                <button
+                    type="submit"
+                    className="w-full bg-[#FFBB00] text-white text-lg font-semibold py-3 rounded-md hover:bg-yellow-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={loading}
+                >
+                    {loading ? 'Logging in...' : 'Login'}
+                </button>
+            </form>
+
+            <p className="mt-6 text-center text-gray-500 text-sm">
+                New to Admin Panel?{" "}
+                <a href="/admin/register" className="text-[#FFBB00] font-medium hover:underline">
+                    Sign up
+                </a>
+            </p>
         </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Email Input */}
-        <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
-            Email Address:
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFBB00] focus:outline-none"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={loading}
-          />
-        </div>
-
-        {/* Password Input */}
-        <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="password">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFBB00] focus:outline-none"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={loading}
-          />
-        </div>
-
-        {/* Login Button */}
-        <button
-          type="submit"
-          className="w-full bg-[#FFBB00] text-white text-lg font-semibold py-3 rounded-md hover:bg-yellow-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={loading}
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-
-      <p className="mt-6 text-center text-gray-500 text-sm">
-        New to Admin Panel?{" "}
-        <a href="/admin/register" className="text-[#FFBB00] font-medium hover:underline">
-          Sign up
-        </a>
-      </p>
-    </div>
-  );
+    );
 };
 
 export default AdminLogin;
