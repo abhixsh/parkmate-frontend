@@ -14,47 +14,34 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
+      // Send the POST request with JSON data
       const response = await fetch('http://localhost:8080/parkmate/admin/login', {
-        method: 'POST',
+        method: 'POST', // Make sure to use POST
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          'Content-Type': 'application/json', // Sending data as JSON
+          'Accept': 'application/json', // Accepting JSON responses
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password }), // Sending email and password in the request body
       });
 
-      console.log('Response:', response); // Logs the full response object
       const data = await response.json();
-      console.log('Response Data:', data); // Logs the parsed JSON data
 
       if (response.ok) {
-        // Saving admin data in localStorage
-        console.log('Saving to localStorage:', {
+        // Saving admin data to localStorage
+        localStorage.setItem('admin', JSON.stringify({
           email: email,
           role: data.admin.role,
           adminId: data.admin.adminId,
-        });
+        }));
 
-        localStorage.setItem(
-          'admin',
-          JSON.stringify({
-            email: email,
-            role: data.admin.role,
-            adminId: data.admin.adminId,
-          })
-        );
-
-        // Navigate to the admin dashboard
-        navigate('/admin/dashboard');  // Navigate to the admin dashboard
-
-        // Then reload the page to apply changes
-        window.location.reload();  // Refresh page after navigation
+        // Redirect to admin dashboard after successful login
+        navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
-      console.error('Login error:', error);
       setError('An unexpected error occurred. Please try again later.');
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }

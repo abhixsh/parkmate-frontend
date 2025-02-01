@@ -129,38 +129,6 @@ const LandingPage = () => {
         </div>
       </motion.div>
 
-      {/* Stats Section */}
-      <motion.div
-        className="max-w-screen-xl mx-auto flex flex-wrap justify-between mt-20 px-4"
-        initial={{ opacity: 0 }} // Initial opacity for fade-in
-        animate={{ opacity: 1 }} // Final opacity after animation
-        transition={{ duration: 1 }}
-      >
-        {/* All Parking Spaces */}
-        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
-          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">50</h3>
-          <p className="text-[#ffbb00] text-[17px] font-semibold">
-            All <span className="text-black">Parking Spaces</span>
-          </p>
-        </div>
-
-        {/* Available Parking Spaces */}
-        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] mb-6 sm:mb-0 sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
-          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">21</h3>
-          <p className="text-[#ffbb00] text-[17px] font-semibold">
-            Available <span className="text-black">Parking Spaces</span>
-          </p>
-        </div>
-
-        {/* Booked Parking Spaces */}
-        <div className="bg-white rounded-lg shadow-md w-full sm:w-[387px] sm:h-[169px] flex flex-col justify-center items-start px-8 py-6">
-          <h3 className="text-black text-[48px] sm:text-[64px] font-semibold">25</h3>
-          <p className="text-[#ffbb00] text-[17px] font-semibold">
-            Booked <span className="text-black">Parking Spaces</span>
-          </p>
-        </div>
-      </motion.div>
-
       {/* Testimonials Section */}
       <Testimonials />
 
