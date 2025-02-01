@@ -13,6 +13,7 @@ export default function ReservationForm() {
     spotName: ""
   });
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   const API_BASE_URL = 'http://localhost:8080/parkmate/reservation';
 
@@ -46,9 +47,9 @@ export default function ReservationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.fullName || !formData.email || !formData.vehicleType || 
-        !formData.vehiclePlateNumber || !formData.reservationDate || 
-        !formData.startTime || !formData.endTime || !formData.spotName) {
+    if (!formData.fullName || !formData.email || !formData.vehicleType ||
+      !formData.vehiclePlateNumber || !formData.reservationDate ||
+      !formData.startTime || !formData.endTime || !formData.spotName) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -68,7 +69,15 @@ export default function ReservationForm() {
       });
 
       if (response.ok) {
-        alert("Reservation successfully created!");
+
+        setNotification({ message: "Reservation successfully created!", type: "success" });
+
+
+        setTimeout(() => {
+          setNotification(null);
+        }, 3000);
+
+
         setFormData({
           reservationId: null,
           fullName: "",
@@ -83,11 +92,21 @@ export default function ReservationForm() {
         setError(null);
       } else {
         const errorData = await response.text();
-        setError(`Error creating reservation: ${errorData}`);
+        setNotification({ message: `Error creating reservation: ${errorData}`, type: "error" });
+
+
+        setTimeout(() => {
+          setNotification(null);
+        }, 20000);
       }
     } catch (error) {
       console.error("Error submitting reservation:", error);
-      setError("Error submitting reservation. Please try again.");
+      setNotification({ message: "Error submitting reservation. Please try again.", type: "error" });
+
+
+      setTimeout(() => {
+        setNotification(null);
+      }, 20000);
     }
   };
 
@@ -101,6 +120,12 @@ export default function ReservationForm() {
           Save time and secure your parking spot in advance! Choose your preferred date, time, and parking slot, and confirm your booking instantly.
         </p>
       </div>
+
+      {notification && (
+        <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+          {notification.message}
+        </div>
+      )}
 
       <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 md:p-12 lg:p-16 mx-auto max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl">
         <h2 className="text-2xl sm:text-3xl font-semibold text-black text-center mb-6 sm:mb-8">Book Your Spot Now</h2>
@@ -123,6 +148,19 @@ export default function ReservationForm() {
               name="fullName"
               type="text"
               value={formData.fullName}
+              onChange={handleChange}
+              className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-lg font-semibold text-black mb-2">Email:</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
               onChange={handleChange}
               className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
               required
@@ -203,19 +241,6 @@ export default function ReservationForm() {
               name="spotName"
               type="text"
               value={formData.spotName}
-              onChange={handleChange}
-              className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-lg font-semibold text-black mb-2">Email:</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
               onChange={handleChange}
               className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
               required
