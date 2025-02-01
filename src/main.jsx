@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import ReservationList from "./components/ReservationList";
 import Reservation from "./components/ReservationForm";
 import Landing from "./components/Landing";
 import AdminDashboard from './components/AdminDashboard';
@@ -24,7 +23,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <Landing /> },
-      { path: "/reservations", element: <ReservationList /> },
       { path: "/create", element: <Reservation /> },
       //{ path: "/edit/:id", element: <Reservation /> },
       { path: "/about", element: <AboutUs /> },
