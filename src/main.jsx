@@ -15,6 +15,8 @@ import Register from './components/Register';
 import "./index.css";
 import ReservationForm from "./components/ReservationForm";
 import Info from "./components/Info";
+import AdminRegister from "./components/AdminRegister";
+import AdminLogin from "./components/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +35,9 @@ const router = createBrowserRouter([
       { path: "/manage-reservations", element: <ManageReservations />},
       { path: "/add-parking-spot", element: <AddParkingSpot />},
       {path: "/reservation", element: <ReservationForm />},
-      {path: "/info", element: <Info />}
+      {path: "/info", element: <Info />},
+      {path: "/admin/register", element: <AdminRegister />},
+      {path: "/admin/login", element: <AdminLogin />}
     ],
   },
 ]);
