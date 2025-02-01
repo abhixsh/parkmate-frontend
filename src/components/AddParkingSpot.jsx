@@ -6,14 +6,14 @@ const AddParkingSpot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // API call to add parking spot
+
     const response = await fetch('/api/parking-spots', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, location }),
     });
     if (response.ok) {
-      // Redirect or show success message
+
       console.log('Parking Spot Added');
     } else {
       console.error('Failed to add parking spot');
