@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ReservationForm() {
   const [formData, setFormData] = useState({
@@ -8,12 +8,14 @@ export default function ReservationForm() {
     vehicleType: "",
     vehiclePlateNumber: "",
     reservationDate: "",
-    startTime: null,
-    endTime: null,
-    spotName: ""
+    startTime: "",
+    endTime: "",
+    spotName: "",
   });
   const [error, setError] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [availableSpots, setAvailableSpots] = useState([]); 
+  const [showAvailableSlots, setShowAvailableSlots] = useState(false); 
 
   const API_BASE_URL = 'http://localhost:8080/parkmate/reservation';
 
@@ -31,25 +33,23 @@ export default function ReservationForm() {
     date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
     setFormData({
       ...formData,
-      [field]: date.getTime()
-    });
-  };
-
-  const formatTimeForDisplay = (timestamp) => {
-    if (!timestamp) return '';
-    return new Date(timestamp).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
+      [field]: timeString,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.fullName || !formData.email || !formData.vehicleType ||
-      !formData.vehiclePlateNumber || !formData.reservationDate ||
-      !formData.startTime || !formData.endTime || !formData.spotName) {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.vehicleType ||
+      !formData.vehiclePlateNumber ||
+      !formData.reservationDate ||
+      !formData.startTime ||
+      !formData.endTime ||
+      !formData.spotName
+    ) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -57,6 +57,8 @@ export default function ReservationForm() {
     const reservationData = {
       ...formData,
       reservationDate: formData.reservationDate ? new Date(formData.reservationDate).getTime() : null,
+      startTime: formData.startTime ? new Date(formData.reservationDate + "T" + formData.startTime).getTime() : null,
+      endTime: formData.endTime ? new Date(formData.reservationDate + "T" + formData.endTime).getTime() : null,
     };
 
     try {
@@ -69,14 +71,10 @@ export default function ReservationForm() {
       });
 
       if (response.ok) {
-
         setNotification({ message: "Reservation successfully created!", type: "success" });
-
-
         setTimeout(() => {
           setNotification(null);
         }, 3000);
-
 
         setFormData({
           reservationId: null,
@@ -85,16 +83,14 @@ export default function ReservationForm() {
           vehicleType: "",
           vehiclePlateNumber: "",
           reservationDate: "",
-          startTime: null,
-          endTime: null,
-          spotName: ""
+          startTime: "",
+          endTime: "",
+          spotName: "",
         });
         setError(null);
       } else {
         const errorData = await response.text();
         setNotification({ message: `Error creating reservation: ${errorData}`, type: "error" });
-
-
         setTimeout(() => {
           setNotification(null);
         }, 20000);
@@ -102,11 +98,36 @@ export default function ReservationForm() {
     } catch (error) {
       console.error("Error submitting reservation:", error);
       setNotification({ message: "Error submitting reservation. Please try again.", type: "error" });
-
-
       setTimeout(() => {
         setNotification(null);
       }, 20000);
+    }
+  };
+
+  const fetchAvailableParkingSpots = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/parkmate/parkingspot/available', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableSpots(data);
+      } else {
+        console.error("Failed to fetch available parking spots");
+      }
+    } catch (error) {
+      console.error("Error fetching available parking spots:", error);
+    }
+  };
+
+  const toggleAvailableSlots = () => {
+    setShowAvailableSlots(!showAvailableSlots); 
+    if (!showAvailableSlots) {
+      fetchAvailableParkingSpots(); 
     }
   };
 
@@ -122,7 +143,9 @@ export default function ReservationForm() {
       </div>
 
       {notification && (
-        <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+        <div
+          className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}
+        >
           {notification.message}
         </div>
       )}
@@ -214,7 +237,7 @@ export default function ReservationForm() {
                 id="startTime"
                 name="startTime"
                 type="time"
-                value={formData.startTime ? formatTimeForDisplay(formData.startTime) : ''}
+                value={formData.startTime}
                 onChange={(e) => handleTimeChange('startTime', e.target.value)}
                 className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
                 required
@@ -226,7 +249,7 @@ export default function ReservationForm() {
                 id="endTime"
                 name="endTime"
                 type="time"
-                value={formData.endTime ? formatTimeForDisplay(formData.endTime) : ''}
+                value={formData.endTime}
                 onChange={(e) => handleTimeChange('endTime', e.target.value)}
                 className="w-full p-3 bg-gray-100 border border-[#ffbb00] rounded-md"
                 required
@@ -259,6 +282,58 @@ export default function ReservationForm() {
         <h3 className="text-2xl font-semibold text-black">Parking Slot Map</h3>
         <img className="mt-6 w-full rounded-xl" src="img/parking.png" alt="Parking Map" />
       </div>
+
+      <div className="text-center mt-6">
+        <button
+          onClick={toggleAvailableSlots}
+          className="px-6 py-3 text-lg font-bold text-white bg-[#ffbb00] rounded-lg hover:bg-[#e6a800] transition duration-300"
+        >
+          {showAvailableSlots ? "Hide Available Slots" : "Show Available Slots"}
+        </button>
+      </div>
+
+      {showAvailableSlots && (
+        <div className="mt-12">
+          <h3 className="text-2xl font-semibold text-black text-center mb-6">Available Parking Slots</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {availableSpots.length > 0 ? (
+              availableSpots.map((spot) => (
+                <div
+                  key={spot.id}
+                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+                >
+                  <div className="p-6 space-y-4">
+                    <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+                      <span className="text-lg font-semibold text-gray-900">{spot.name}</span>
+                      <span className="px-3 py-1 bg-[#ffbb00]/10 text-[#ffbb00] rounded-full text-sm font-medium">
+                        {spot.location}
+                      </span>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Hourly Rate</span>
+                        <span className="font-medium">${spot.hourlyRate}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Type</span>
+                        <span className="font-medium">{spot.type}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Available</span>
+                        <span className="font-medium">{spot.isAvailable ? 'Yes' : 'No'}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-2 text-center py-12 bg-white rounded-xl shadow">
+                <p className="text-gray-500 text-lg">No available spots</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

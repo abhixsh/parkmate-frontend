@@ -60,7 +60,7 @@ const Register = () => {
       }
 
       if (response.ok) {
-        alert(data.message || 'Registration successful!');
+        // alert(data.message || 'Registration successful!');
         navigate('/login');
       } else {
         setError(data.message || 'Registration failed. Please try again.');
