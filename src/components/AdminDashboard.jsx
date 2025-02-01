@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg p-6">
+      <div className="w-64 bg-white shadow-lg p-2">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Admin Info</h2>
         <div className="text-gray-600 mb-6">
           <p><strong>Email:</strong> {admin.email}</p>
@@ -45,7 +45,6 @@ const AdminDashboard = () => {
       <div className="flex-1 p-8">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800">Welcome, {admin.role}</h1>
-          <p className="text-gray-600 mt-2">Here's what's happening today</p>
         </header>
 
         <div className="grid grid-cols-2 gap-8">
