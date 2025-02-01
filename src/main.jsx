@@ -16,6 +16,7 @@ import ReservationForm from "./components/ReservationForm";
 import Info from "./components/Info";
 import AdminRegister from "./components/AdminRegister";
 import AdminLogin from "./components/AdminLogin";
+import ManageUsers from "./components/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,8 @@ const router = createBrowserRouter([
       {path: "/reservation", element: <ReservationForm />},
       {path: "/info", element: <Info />},
       {path: "/admin/register", element: <AdminRegister />},
-      {path: "/admin/login", element: <AdminLogin />}
+      {path: "/admin/login", element: <AdminLogin />},
+      {path: "/manage-users", element: <ManageUsers />}
     ],
   },
 ]);
