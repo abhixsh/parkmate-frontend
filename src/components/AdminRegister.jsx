@@ -7,7 +7,7 @@ const AdminRegister = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: '', // Added role input
+        role: '', 
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -58,7 +58,6 @@ const AdminRegister = () => {
             }
 
             if (response.ok) {
-                alert(data.message || 'Admin registered successfully!');
                 navigate('/admin/login');
             } else {
                 setError(data.message || 'Registration failed. Please try again.');
@@ -106,7 +105,7 @@ const AdminRegister = () => {
                             />
                         </div>
 
-                        {/* Role Input */}
+                        {/* Role Input (Dropdown) */}
                         <div>
                             <label
                                 className="block text-gray-700 font-medium mb-2"
@@ -114,8 +113,7 @@ const AdminRegister = () => {
                             >
                                 Role
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 id="role"
                                 name="role"
                                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFBB00] focus:outline-none"
@@ -123,7 +121,11 @@ const AdminRegister = () => {
                                 onChange={handleChange}
                                 required
                                 disabled={loading}
-                            />
+                            >
+                                <option value="">Select a role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="SuperAdmin">SuperAdmin</option>
+                            </select>
                         </div>
 
                         {/* Password Input */}
