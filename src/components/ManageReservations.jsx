@@ -157,110 +157,139 @@ const ManageReservations = () => {
   };
 
   return (
-    <div className="manage-reservations bg-gray-100 min-h-screen p-10">
-      <h2 className="text-3xl font-semibold text-[#1A202C] mb-6">Manage Reservations</h2>
+    <div className="manage-reservations bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-6 md:p-10">
+      <h2 className="text-3xl font-bold text-gray-800 mb-8 border-b pb-4">Manage Reservations</h2>
 
-      {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">{error}</div>}
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-r-lg animate-fadeIn">
+          {error}
+        </div>
+      )}
 
-      <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
-        <h3 className="text-2xl font-semibold mb-4">{isEditing ? 'Edit Reservation' : 'Add New Reservation'}</h3>
-        <form onSubmit={handleSave} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={editReservation.fullName}
-            onChange={(e) => setEditReservation({ ...editReservation, fullName: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={editReservation.email}
-            onChange={(e) => setEditReservation({ ...editReservation, email: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Vehicle Type"
-            value={editReservation.vehicleType}
-            onChange={(e) => setEditReservation({ ...editReservation, vehicleType: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Vehicle Plate Number"
-            value={editReservation.vehiclePlateNumber}
-            onChange={(e) => setEditReservation({ ...editReservation, vehiclePlateNumber: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="date"
-            value={editReservation.reservationDate}
-            onChange={(e) => setEditReservation({ ...editReservation, reservationDate: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="time"
-            value={editReservation.startTime ? formatTimeForDisplay(editReservation.startTime) : ''}
-            onChange={(e) => handleTimeChange('startTime', e.target.value)}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="time"
-            value={editReservation.endTime ? formatTimeForDisplay(editReservation.endTime) : ''}
-            onChange={(e) => handleTimeChange('endTime', e.target.value)}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Spot Name"
-            value={editReservation.spotName}
-            onChange={(e) => setEditReservation({ ...editReservation, spotName: e.target.value })}
-            className="w-full p-3 border rounded-lg"
-            required
-          />
-          <button type="submit" className="w-full bg-[#FFBB00] text-white p-3 rounded-lg">
+      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl mb-8 transition-all duration-300 hover:shadow-2xl">
+        <h3 className="text-2xl font-bold text-gray-700 mb-6 flex items-center">
+          <span className={`mr-2 ${isEditing ? 'text-black' : 'text-blacks'}`}>
+            {isEditing ? 'Edit Reservation' : 'Add New Reservation'}
+          </span>
+        </h3>
+
+        <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={editReservation.fullName}
+              onChange={(e) => setEditReservation({ ...editReservation, fullName: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={editReservation.email}
+              onChange={(e) => setEditReservation({ ...editReservation, email: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Vehicle Type"
+              value={editReservation.vehicleType}
+              onChange={(e) => setEditReservation({ ...editReservation, vehicleType: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Vehicle Plate Number"
+              value={editReservation.vehiclePlateNumber}
+              onChange={(e) => setEditReservation({ ...editReservation, vehiclePlateNumber: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+          </div>
+          <div className="space-y-4">
+            <input
+              type="date"
+              value={editReservation.reservationDate}
+              onChange={(e) => setEditReservation({ ...editReservation, reservationDate: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="time"
+              value={editReservation.startTime ? formatTimeForDisplay(editReservation.startTime) : ''}
+              onChange={(e) => handleTimeChange('startTime', e.target.value)}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="time"
+              value={editReservation.endTime ? formatTimeForDisplay(editReservation.endTime) : ''}
+              onChange={(e) => handleTimeChange('endTime', e.target.value)}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Spot Name"
+              value={editReservation.spotName}
+              onChange={(e) => setEditReservation({ ...editReservation, spotName: e.target.value })}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FFBB00] focus:border-transparent transition-all"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="md:col-span-2 bg-[#FFBB00] hover:bg-[#FFA500] text-white p-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
+          >
             {isEditing ? 'Save Changes' : 'Add Reservation'}
           </button>
         </form>
       </div>
 
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h3 className="text-2xl font-semibold mb-6">Existing Reservations</h3>
-        <ul className="space-y-4">
+      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl">
+        <h3 className="text-2xl font-bold text-gray-700 mb-6">Existing Reservations</h3>
+        <div className="space-y-4">
           {reservations.length > 0 ? (
             reservations.map((reservation) => (
-              <li key={reservation.reservationId} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-md">
-                <span className="font-semibold">{reservation.fullName}</span>
-                <span className="mx-2">-</span>
-                <span>{reservation.vehiclePlateNumber}</span>
-                <span className="mx-2">-</span>
-                <span>{formatDateForDisplay(reservation.reservationDate)}</span>
-                <span className="mx-2">-</span>
-                <span>
-                  {formatTimeForDisplay(reservation.startTime)} - {formatTimeForDisplay(reservation.endTime)}
-                </span>
-                <div className="space-x-4">
-                  <button onClick={() => handleEdit(reservation)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+              <div
+                key={reservation.reservationId}
+                className="flex flex-col md:flex-row md:justify-between md:items-center p-4 bg-gray-50 rounded-xl shadow hover:shadow-md transition-all duration-300"
+              >
+                <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row md:items-center mb-4 md:mb-0">
+                  <span className="font-semibold text-gray-800">{reservation.fullName}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">{reservation.vehiclePlateNumber}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">{formatDateForDisplay(reservation.reservationDate)}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">
+                    {formatTimeForDisplay(reservation.startTime)} - {formatTimeForDisplay(reservation.endTime)}
+                  </span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-gray-600">{reservation.spotName}</span>
+                </div>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => handleEdit(reservation)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 flex items-center"
+                  >
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(reservation.reservationId)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                  <button
+                    onClick={() => handleDelete(reservation.reservationId)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 flex items-center"
+                  >
                     Delete
                   </button>
                 </div>
-              </li>
+              </div>
             ))
           ) : (
-            <p className="text-gray-500">No reservations available.</p>
+            <p className="text-gray-500 text-center py-8">No reservations available.</p>
           )}
-        </ul>
+        </div>
       </div>
     </div>
   );
