@@ -15,7 +15,7 @@ ParkMate helps users easily find and reserve parking spaces while providing admi
 - **Tailwind CSS**: For responsive and modern UI styling.
 - **React Router**: For managing application routes.
 - **Figma**: For design prototyping.
-- **Deployed using**: Firebase.
+- **Deployed using**: Firebase.  dd
 
 ## Features
 ### Landing Page
