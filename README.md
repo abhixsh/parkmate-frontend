@@ -1,66 +1,87 @@
-# ParkMate Frontend
+<div align="center">
 
-The frontend for ParkMate, a smart parking management system designed to simplify parking for users and streamline operations for admins.
+<img src="src/assets/logobar.png" alt="parkmate Logo" width="95%">
 
-## Streamline parking management with ParkMate
+<br/>
 
-### Live Demo
-[ParkMate Live Demo](https://parkmate-rad.web.app/)
+# ParkMate – Smart Parking Management System
 
-## Project Overview
-ParkMate helps users easily find and reserve parking spaces while providing admins tools to manage parking operations efficiently. This repository contains the React-based frontend of ParkMate.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
-## Technologies Used
-- **React.js**: For building the user interface.
-- **Tailwind CSS**: For responsive and modern UI styling.
-- **React Router**: For managing application routes.
-- **Figma**: For design prototyping.
-- **Deployed using**: Firebase.  dd
+ParkMate is a smart parking web app that helps users easily find and reserve parking spots while giving admins control over parking operations.
+
+</div>
+
+# About the Project
+
+ParkMate is a modern parking management system designed to reduce parking hassles in busy areas. It allows users to view parking availability, read testimonials, and soon, book spots. Admins can use a planned panel to manage slots and users. The goal is to improve convenience and reduce time wasted searching for parking.
 
 ## Features
-### Landing Page
-- Showcases services and testimonials.
-- Displays parking statistics (available, booked, and total spots).
 
-### Testimonials Section
-- Rotating customer reviews with sleek animations.
+- **Landing Page**: Engaging UI with parking stats, service highlights, and real user feedback
+- **Live Availability**: See available, booked, and total spots
+- **Responsive Design**: Works smoothly on mobile, tablet, and desktop
+- **Admin Panel**: Slot management and user control for admins
 
-### Responsive Design
-- Optimized for mobile, tablet, and desktop.
+## Technology Stack
 
-### Admin Panel (Planned)
-- Admin-specific features for managing parking spaces and user roles.
+- **Frontend**: ReactJS & TailwindCSS
+- **Backend**: Java Servelet
+- **Database**: SQL
+- **CI/CD**: GitHub Actions
+- **Hosting**: Firebase Hosting
 
-## Screenshots
-![Landing Page](img/image.png)
-![Services](img/image-1.png)
-![Testimonials](img/image-2.png)
-## Getting Started
+## Backend Repository
+
+<a href="https://github.com/abhixsh/parkmate-backend" target="_blank">
+  <img width="95%" alt="Backend Repo" src="https://i.ibb.co/b5Fdv08W/Group-1.png"/>
+</a>
+<div align="center">
+  <strong>Click here to go to the backend repository</strong>
+</div>
+
+
+
+## Local Development
+
+### Prerequisites
+- Node.js and npm installed
+
 ### Installation
-Clone the repository:
+
+1. Clone the repositories:
 ```bash
-git clone https://github.com/your-username/parkmate-frontend.git  
-cd parkmate-frontend  
+git clone https://github.com/abhixsh/parkmate-frontend
+
 ```
-Install dependencies:
+
+2. Install dependencies:
 ```bash
-npm install  
+npm install
+
 ```
-Start the development server:
+
+3. Start development servers:
 ```bash
-npm start  
+npm run dev
 ```
-Open the application in your browser at [http://localhost:3000](http://localhost:3000).
 
-## Folder Structure
-- **src/**: Contains all React components and assets.
-- **components/**: Reusable UI components like Navbar, Footer, Testimonials, etc.
-- **pages/**: Individual pages like LandingPage, About, etc.
-- **assets/**: Images and static files.
+## Contributing
 
-<!-- ## License
-This project is licensed under the MIT License. -->
+A win-win cooperation! We invite you to participate in this project. Let's work together to create the most useful tool for developers on the web today.
 
-If you have any questions, feel free to reach out!
+### How to Contribute
 
+- Issues: ask questions and submit your features
+- Pull requests: send your improvements to the current codebase
 
+Together, we can make this project **better** every day!
+
+## License
+
+This project is licensed under the MIT License.
