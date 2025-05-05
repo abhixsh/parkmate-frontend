@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="src/assets/logobar.png" alt="parkmate Logo" width="95%">
+<img src="public/logobar.png" alt="parkmate Logo" width="95%">
 
 <br/>
 
